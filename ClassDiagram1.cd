@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ClassLibraryAuditoria.Auditoria">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ClassLibraryColaborador.Colaborador">
+    <Position X="2.5" Y="3.5" Width="1.5" />
+    <InheritanceLine Type="ClassLibraryPessoa.Pessoa" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="3.25" Y="6.25" />
+        <Point X="3.25" Y="6.146" />
+        <Point X="3.25" Y="6.146" />
+        <Point X="3.25" Y="5.636" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ClassLibraryPessoa.Pessoa" Collapsed="true">
+    <Position X="2.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
