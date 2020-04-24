@@ -1,19 +1,32 @@
-﻿using System;
+﻿//-----------------------------------------------------------------------
+// <copyright file="Vulnerabilidade.cs" company="">
+//     Copyright. All rights reserved.
+// </copyright>
+// <date> 04/24/2020 </date>
+// <time> 15:56 </time>
+// <author> Carlos Santos (19432) & Ruben Silva (19433) </author>
+//-----------------------------------------------------------------------
+
+using System;
 
 namespace ClassLibraryVulnerabilidade
 {
-    enum NIVELIMPACTO
+
+    #region ENUMS
+    public enum NivelImpacto
     {
-        BAIXO=0,
-        MODERADO=1,
-        ELEVADO=2
+        BAIXO,
+        MODERADO,
+        ELEVADO
     }
+    #endregion
+
     public class Vulnerabilidade
     {
         #region ESTADO
         int codigo;
         string descricao;
-        int nivelImpacto;
+        NivelImpacto impacto;
         #endregion
 
         #region METODOS
@@ -28,7 +41,7 @@ namespace ClassLibraryVulnerabilidade
         {
             this.codigo = -1;
             this.descricao = "";
-            this.nivelImpacto = -1;
+            this.impacto = 0;
         }
 
         /// <summary>
@@ -36,12 +49,12 @@ namespace ClassLibraryVulnerabilidade
         /// </summary>
         /// <param codigo="codigo">Código da Vulnerabilidade</param>
         /// <param descricao="descricao">Descrição da Vulnerabilidade</param>
-        /// <param nivelImpacto="nivelImpacto">Nivel de Imapcto da Vulnerabilidade</param>
-        public Vulnerabilidade(int codigo, string descricao, int nivelImpacto)
+        /// <param impacto="impacto">Nivel de Imapcto da Vulnerabilidade</param>
+        public Vulnerabilidade(int codigo, string descricao, NivelImpacto impacto)
         {
             this.codigo = codigo;
             this.descricao = descricao;
-            this.nivelImpacto = nivelImpacto;
+            this.impacto = impacto;
         }
 
         #endregion
@@ -70,13 +83,13 @@ namespace ClassLibraryVulnerabilidade
         }
 
         /// <summary>
-        /// Manipula o atributo "nivelImpacto"
-        /// int codigo;
+        /// Manipula o atributo "impacto"
+        /// NivelImpacto impacto;
         /// </summary>
-        public int NivelImpacto
+        public NivelImpacto Impacto
         {
-            get => nivelImpacto;
-            set => nivelImpacto = value;
+            get => impacto;
+            set => impacto = value;
         }
 
 
@@ -89,10 +102,11 @@ namespace ClassLibraryVulnerabilidade
     {
         #region VARIAVEIS
         const int MAX = 100;
-        public string vulnerabilidades;
-        Vulnerabilidade[] vul;
-        int totalVul;
+        static Vulnerabilidade[] vul;
+        static int totalVul;
         #endregion
+
+        #region METODOS
 
         #region CONSTRUTORES
 
@@ -106,19 +120,35 @@ namespace ClassLibraryVulnerabilidade
 
         #endregion
 
-        #region PROPRIEDADES
-
         #region FUNCOES
-        public bool RegistaVulnerabilidade(Vulnerabilidade v)
+
+        /// <summary>
+        /// Regista uma vulnerabilidade
+        /// </summary>
+        /// <param Vulnerabilidade="v">Vulnerabilidade Completa </param>
+        /// <returns> 0 se não houver lugares disponíveis no array
+        /// -1 se já existir essa vulnerabilidade
+        /// 1 se for inserida a vulnerabilidade</returns>
+        public static int RegistaVulnerabilidade(Vulnerabilidade v)
         {
-            //Validar;
+            if (totalVul >= MAX) return 0;
+            if (ExisteVulnerabilidade(v.Codigo) == true) return -1;
+
             vul[totalVul++] = v;
-            return true;
+
+            return 1;
         }
 
-        public bool ExisteVulnerabilidade(int cod)
+        /// <summary>
+        /// Verifica se existe vulnerabilidade
+        /// </summary>
+        /// <param codigo="cod">Codigo de vulnerabilidade </param>
+        /// <returns> True se existir
+        /// False se não existir</returns>
+        private static bool ExisteVulnerabilidade(int cod)
         {
-            //procurar;
+            for (int i = 0; i < totalVul; i++)
+                if (vul[i].Codigo == cod) return true;
             return true;
         }
 
@@ -126,5 +156,6 @@ namespace ClassLibraryVulnerabilidade
         #endregion
 
         #endregion
+
     }
 }

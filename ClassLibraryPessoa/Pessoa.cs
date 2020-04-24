@@ -1,4 +1,13 @@
-﻿namespace ClassLibraryPessoa
+﻿//-----------------------------------------------------------------------
+// <copyright file="Pessoa.cs" company="">
+//     Copyright. All rights reserved.
+// </copyright>
+// <date> 04/24/2020 </date>
+// <time> 15:56 </time>
+// <author> Carlos Santos (19432) & Ruben Silva (19433) </author>
+//-----------------------------------------------------------------------
+
+namespace ClassLibraryPessoa
 {
     public class Pessoa
     {
@@ -99,19 +108,6 @@
 
         #endregion
 
-        #region OVERRIDES
-
-        //public override bool Equals(Object obj)
-        //{
-        //    return (this.nome == ((Pessoa)obj).nome);
-        //}
-
-        //public override string ToString()
-        //{
-        //    return string.Format("Nome= {0} - Idade= {1}", Nome, Idade);
-        //}
-        #endregion
-
         #endregion
 
     }
@@ -142,10 +138,11 @@
         #region FUNCOES
 
         /// <summary>
-        /// Verifica se determinada pessoa existe
+        /// Verifica se exeiste determinada pessoa
         /// </summary>
         /// <param nif="nif">Nif da Pessoa</param>
-        /// <returns></returns>
+        /// <returns> True se existir
+        /// False se não existir</returns>
         private static bool ExistePessoa(int nif)
         {
             for (int i = 0; i < totalPes; i++)
@@ -160,69 +157,20 @@
         }
 
         /// <summary>
-        /// Regista uma nova pessoa
+        /// Regista uma pessoa
         /// </summary>
-        /// <param name="p"></param>
-        public static int InserePessoa(Pessoa p)
+        /// <param pessoa="p"></param>
+        /// <returns> 0 se não houver lugares disponíveis no array
+        /// -1 se já existir essa pessoa
+        /// 1 se for inserida a pessoa</returns>
+        public static int RegistaPessoa(Pessoa p)
         {
-            //Testar se está cheio
             if (totalPes >= MAX) return 0;
-            //testar se já existe; 
-            if (ExistePessoa(p.Nif)) return 0;
-            //ou
-            //if (totPessoas >= MAX || GetPessoa(p.Idade) != null) return 0;
+            if (ExistePessoa(p.Nif)) return -1;
 
             pes[totalPes++] = p;
             return 1;
         }
-
-        ///// <summary>
-        ///// Tenta registar nova pessoa e devolve o resultado da operação
-        ///// </summary>
-        ///// <param name="p">Nova pessoa</param>
-        ///// <returns>Estado da Operação</returns>
-        //public static int InserePessoaRes(Pessoa p)
-        //{
-        //    //Testar se está cheio
-        //    if (totalPes >= MAX) return 0;
-        //    //testar se já existe; 
-        //    if (ExistePessoa(p.Nif)) return 0;
-
-        //    pes[totalPes++] = p;
-        //    return 1;
-        //}
-
-        ///// <summary>
-        ///// Procura a ficha de determinada pessoa ...
-        ///// </summary>
-        ///// <param name="id">Nome da pessoa</param>
-        //public static Pessoa GetPessoa(int i)
-        //{
-        //    for (int i = 0; i < totalPes; i++)
-        //    {
-        //        // Caso seja essa Pessoa
-        //        if (pes[i].Idade == i) return pes[i];
-        //    }
-        //    return null;
-        //}
-
-        /// <summary>
-        /// Verifica se uma pessoa existe. Se existir devolve a Ficha da Pessoa
-        /// </summary>
-        /// <param name="nome">Nome da Pessoa</param>
-        /// <returns>Ficha da Pessoa caso exista; NULL caso nao exista</returns>
-        //public static Pessoa WhereIs(string nome)
-        //{
-        //    for (int i = 0; i < numPess; i++)
-        //    {
-        //        // Caso seja essa Pessoa
-        //        if (pess[i].Nome.CompareTo(nome) == 0)
-        //        {
-        //            return pess[i];
-        //        }
-        //    }
-        //    return null;
-        //}
 
         #endregion
 

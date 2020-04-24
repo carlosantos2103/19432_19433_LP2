@@ -1,4 +1,13 @@
-﻿using System;
+﻿//-----------------------------------------------------------------------
+// <copyright file="Equipamento.cs" company="">
+//     Copyright. All rights reserved.
+// </copyright>
+// <date> 04/24/2020 </date>
+// <time> 15:56 </time>
+// <author> Carlos Santos (19432) & Ruben Silva (19433) </author>
+//-----------------------------------------------------------------------
+
+using System;
 
 using ClassLibraryVulnerabilidade;
 
@@ -11,8 +20,8 @@ namespace ClassLibraryEquipamento
         string tipo;
         string modelo;
         DateTime dataAquisicao;
+        int codVuln;
 
-        static Vulnerabilidades vul;
         #endregion
 
         #region METODOS
@@ -29,7 +38,7 @@ namespace ClassLibraryEquipamento
             this.tipo = "";
             this.modelo = "";
             this.dataAquisicao = DateTime.Today;
-
+            this.codVuln = -1;
         }
 
         /// <summary>
@@ -45,6 +54,7 @@ namespace ClassLibraryEquipamento
             this.tipo = tipo;
             this.modelo = modelo;
             this.dataAquisicao = dataAquisicao;
+            this.codVuln = -1;
         }
 
         #endregion
@@ -99,17 +109,14 @@ namespace ClassLibraryEquipamento
             }
         }
 
-
-        #endregion
-
-        #region FUNCOES
-
-        public static bool RegistaVulnerabilidadeEquipamento(Vulnerabilidade v)
+        /// <summary>
+        /// Manipula o atributo "codigo Vulnerabilidade"
+        /// int codVuln;
+        /// </summary>
+        public int CodVuln
         {
-            //Validações
-            if (vul.ExisteVulnerabilidade(v.Codigo) == false)
-                vul.RegistaVulnerabilidade(v);
-            return true;
+            get => codVuln;
+            set => codVuln = value;
         }
 
         #endregion
@@ -122,9 +129,10 @@ namespace ClassLibraryEquipamento
         #region ATRIBUTOS
         const int MAX = 100;
         static Equipamento[] equ;
-        static Vulnerabilidade[] vul;
         static int totalEqu = 0;
         #endregion
+
+        #region METODOS
 
         #region CONSTRUTORES
 
@@ -134,24 +142,39 @@ namespace ClassLibraryEquipamento
         public Equipamentos()
         {
             equ = new Equipamento[MAX];
-            vul = new Vulnerabilidade[MAX];
         }
 
         #endregion
 
-        #region PROPRIEDADES
-
         #region FUNCOES
-        public static bool RegistaEquipamento(Equipamento e)
+
+        /// <summary>
+        /// Regista um equipamento
+        /// </summary>
+        /// <param equipamento="e">Equipamento Completo</param>
+        /// <returns> 0 se não houver lugares disponíveis no array
+        /// -1 se já existir esse equipamento
+        /// 1 se for inserido o equipamento</returns>
+        public static int RegistaEquipamento(Equipamento e)
         {
-            //Validar;
+            if (totalEqu >= MAX) return 0;
+            if (ExisteEquipamento(e.Codigo) == true) return -1;
+
             equ[totalEqu++] = e;
-            return true;
+
+            return 1;
         }
 
-        public static bool ExisteEquipamento(int equ)
+        /// <summary>
+        /// Verifica se existe Equipamento
+        /// </summary>
+        /// <param codigo="cod">Codigo de equipamento </param>
+        /// <returns> True se existir
+        /// False se não existir</returns>
+        private static bool ExisteEquipamento(int cod)
         {
-            //procurar;
+            for (int i = 0; i < totalEqu; i++)
+                if (equ[i].Codigo == cod) return true;
             return true;
         }
 

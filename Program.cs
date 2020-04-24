@@ -1,4 +1,13 @@
-﻿using System;
+﻿//-----------------------------------------------------------------------
+// <copyright file="Program.cs" company="">
+//     Copyright. All rights reserved.
+// </copyright>
+// <date> 04/24/2020 </date>
+// <time> 15:56 </time>
+// <author> Carlos Santos (19432) & Ruben Silva (19433) </author>
+//-----------------------------------------------------------------------
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,6 +16,7 @@ using System.Threading.Tasks;
 using ClassLibraryAuditoria;
 using ClassLibraryColaborador;
 using ClassLibraryEquipamento;
+using ClassLibraryVulnerabilidade;
 using ClassLibraryPessoa;
 
 namespace TESTE
@@ -15,23 +25,30 @@ namespace TESTE
     {
         static void Main(string[] args)
         {
-            #region DADOS DOS INDIVIDUOS 
+            #region DADOS TESTE 
+
             // DADOS A INSERIR POR ORDEM NUMA AUDITORIA
-            //int codigo, string nome, string sexo, int idade, int nif
             // CODIGO / DURACAO / DATA
-            Auditoria teste = new Auditoria(152, 10, DateTime.Today);
-            Auditoria teste2 = new Auditoria(56, 25, DateTime.Today);
+
+            //int codigo, string nome, string sexo, int idade, int nif
+
             Colaborador col1 = new Colaborador(12, "Carlos", "M", 20, 164015);
             Equipamento equ1 = new Equipamento(15, "Portatil", "HP", DateTime.Today);
-            Auditorias.RegistaAuditoria(teste, col1, equ1);
 
+            Vulnerabilidade vul1 = new Vulnerabilidade(5, "Falha no sistema", NivelImpacto.ELEVADO);
+            Console.WriteLine("VULNERABILIDADE:");
+            Console.WriteLine("Codigo:" + vul1.Codigo);
+            Console.WriteLine("Descrição: " + vul1.Descricao);
+            Console.WriteLine("Nível de Impacto: " + vul1.Impacto);
+            Console.WriteLine("");
 
-            Console.WriteLine("TESTE 1");
-            Console.WriteLine("CODIGO: {0}", teste.Codigo);
-            Console.WriteLine("DURACAO: {0}", teste.Duracao);
-            Console.WriteLine("DATA: {0}", teste.DataRegisto);
-            Console.WriteLine("COLABORADOR:  {0}");
-            Console.WriteLine("NOME COLAB: {0}"); 
+            Auditoria teste = new Auditoria(152, 10, DateTime.Today, col1.Codigo, equ1.Codigo);
+            Auditoria teste2 = new Auditoria(56, 25, DateTime.Today, col1.Codigo, equ1.Codigo);
+
+            Auditorias.RegistaAuditoria(teste);
+            Auditorias.RegistaAuditoria(teste2);
+
+            Auditorias.MostraAuditoria(teste);
 
             #endregion
             Console.ReadKey();

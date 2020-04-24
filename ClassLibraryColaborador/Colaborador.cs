@@ -1,4 +1,13 @@
-﻿using System;
+﻿//-----------------------------------------------------------------------
+// <copyright file="Colaborador.cs" company="">
+//     Copyright. All rights reserved.
+// </copyright>
+// <date> 04/24/2020 </date>
+// <time> 15:56 </time>
+// <author> Carlos Santos (19432) & Ruben Silva (19433) </author>
+//-----------------------------------------------------------------------
+
+using System;
 
 using ClassLibraryPessoa;
 
@@ -68,6 +77,8 @@ namespace ClassLibraryColaborador
         static int totalCol=0;
         #endregion
 
+        #region METODOS
+
         #region CONSTRUTORES
 
         /// <summary>
@@ -80,22 +91,31 @@ namespace ClassLibraryColaborador
 
         #endregion
 
-        #region PROPRIEDADES
-
         #region FUNCOES
-        public static bool RegistaColaborador(Colaborador c)
+
+        /// <summary>
+        /// Regista um Colaborador
+        /// </summary>
+        /// <param colaborador="c">Colaborador Completo </param>
+        /// <returns> 0 se não houver lugares disponíveis no array
+        /// -1 se já existir esse colaborador
+        /// 1 se for inserido o colaborador</returns>
+        public static int RegistaColaborador(Colaborador c)
         {
-            //Validar;
+            if (totalCol >= MAX) return 0;
+            if (ExisteColaborador(c.Codigo) == true) return -1;
+
             col[totalCol++] = c;
-            return true;
+            return 1;
         }
 
         /// <summary>
-        /// Pesquisa o Colaborador na base de dados
+        /// Verifica se existe colaborador
         /// </summary>
         /// <param codigo="cod">Codigo do colaborador.</param>
-        /// <returns>True se existir colaborador, False se não existir colaborador</returns>
-        public static bool ExisteColaborador(int cod)
+        /// <returns>True se existir colaborador
+        /// False se não existir</returns>
+        private static bool ExisteColaborador(int cod)
         {
             for (int i = 0; i < totalCol; i++)
                 if (col[i].Codigo == cod) return true;
