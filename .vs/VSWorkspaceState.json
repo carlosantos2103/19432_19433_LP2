@@ -1,7 +1,12 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\ClassLibraryAuditoria",
+    "\\ClassLibraryColaborador",
+    "\\ClassLibraryEquipamento",
+    "\\ClassLibraryPessoa",
+    "\\ClassLibraryVulnerabilidade"
   ],
-  "SelectedNode": "\\TESTE.sln",
+  "SelectedNode": "\\ClassLibraryVulnerabilidade\\Vulnerabilidade.cs",
   "PreviewInSolutionExplorer": false
 }

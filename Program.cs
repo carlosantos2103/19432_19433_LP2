@@ -4,7 +4,7 @@
 // </copyright>
 // <date> 04/24/2020 </date>
 // <time> 15:56 </time>
-// <author> Carlos Santos (19432) & Ruben Silva (19433) </author>
+// <author> Carlos Santos (19432) & Rúben Silva (19433) </author>
 //-----------------------------------------------------------------------
 
 using System;
