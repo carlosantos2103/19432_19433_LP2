@@ -42,7 +42,7 @@ namespace a2_RegrasNegocio
             }
             catch (Excecoes x)
             {
-                throw x;
+                Console.WriteLine(x.Message);
             }
         }
 
@@ -60,7 +60,7 @@ namespace a2_RegrasNegocio
             }
             catch (Excecoes x)
             {
-                Console.WriteLine(x);
+                Console.WriteLine(x.Message);
             }
             return false;
         }
@@ -77,7 +77,7 @@ namespace a2_RegrasNegocio
             }
             catch (Excecoes x)
             {
-                Console.WriteLine(x);
+                Console.WriteLine(x.Message);
             }
             return 0;
 
@@ -98,7 +98,7 @@ namespace a2_RegrasNegocio
             }
             catch (Excecoes x)
             {
-                Console.WriteLine(x);
+                Console.WriteLine(x.Message);
             }
             return false;
         }
@@ -118,7 +118,7 @@ namespace a2_RegrasNegocio
             }
             catch (Excecoes x)
             {
-                Console.WriteLine(x);
+                Console.WriteLine(x.Message);
             }
             return false;
         }
@@ -165,7 +165,7 @@ namespace a2_RegrasNegocio
             }
             catch (Excecoes x)
             {
-                Console.WriteLine(x);
+                Console.WriteLine(x.Message);
             }
             return false;
         }
@@ -193,7 +193,7 @@ namespace a2_RegrasNegocio
             }
             catch (Excecoes x)
             {
-                Console.WriteLine(x);
+                Console.WriteLine(x.Message);
             }
             return null;
         }
@@ -220,7 +220,7 @@ namespace a2_RegrasNegocio
             }
             catch (Excecoes x)
             {
-                Console.WriteLine(x);
+                Console.WriteLine(x.Message);
             }
             return null;
         }
@@ -237,7 +237,7 @@ namespace a2_RegrasNegocio
             }
             catch (Excecoes x)
             {
-                Console.WriteLine(x);
+                Console.WriteLine(x.Message);
             }
             return null;
         }
@@ -254,7 +254,7 @@ namespace a2_RegrasNegocio
             }
             catch (Excecoes x)
             {
-                Console.WriteLine(x);
+                 Console.WriteLine(x.Message);
             }
             return 0;
         }
@@ -271,7 +271,7 @@ namespace a2_RegrasNegocio
             }
             catch (Excecoes x)
             {
-                Console.WriteLine(x);
+                 Console.WriteLine(x.Message);
             }
             return false;
         }
@@ -288,7 +288,7 @@ namespace a2_RegrasNegocio
             }
             catch (Excecoes x)
             {
-                Console.WriteLine(x);
+                Console.WriteLine(x.Message);
             }
             return false;
         }

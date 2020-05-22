@@ -56,11 +56,19 @@ namespace a3_DadosClasses
         /// 0 se não for inserida a auditoria</returns>
         public static int InsereAuditoria(Auditoria a)
         {
-            AuditoriaCompleta ac = new AuditoriaCompleta(a);
-            ac.a.Codigo = (aud.Count) + 1;
-            if (ExisteAuditoria(a.Codigo) == true) return 0;
-            aud.Add(ac);
-            return ac.a.Codigo;
+            try
+            {
+                AuditoriaCompleta ac = new AuditoriaCompleta(a);
+                ac.a.Codigo = (aud.Count) + 1;
+                if (ExisteAuditoria(a.Codigo) == true) return 0;
+                aud.Add(ac);
+                return ac.a.Codigo;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Erro: " + e.Message);
+                return 0;
+            }
         }
 
         /// <summary>
@@ -71,9 +79,17 @@ namespace a3_DadosClasses
         /// False se não existir</returns>
         public static bool ExisteAuditoria(int cod)
         {
-            foreach (AuditoriaCompleta ac in aud)
-                if (ac.a.Codigo == cod) return true;
-            return false;
+            try
+            {
+                foreach (AuditoriaCompleta ac in aud)
+                    if (ac.a.Codigo == cod) return true;
+                return false;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Erro: " + e.Message);
+                return false;
+            }
         }
 
         /// <summary>
@@ -82,7 +98,15 @@ namespace a3_DadosClasses
         /// <returns>Devolve a quantidade de auditorias</returns>
         public static int QuantidadeAuditorias()
         {
-            return aud.Count;
+            try
+            {
+                return aud.Count;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Erro: " + e.Message);
+                return 0;
+            }
         }
 
         /// <summary>
@@ -94,13 +118,21 @@ namespace a3_DadosClasses
         /// False se não for adicionada</returns>
         public static bool AdicionaVulnerabilidade(int cod, int codv)
         {
-            foreach (AuditoriaCompleta ac in aud)
-                if (cod == ac.a.Codigo)
-                {
-                    ac.codVulns.Add(codv);
-                    return true;
-                }
-            return false;
+            try
+            {
+                foreach (AuditoriaCompleta ac in aud)
+                    if (cod == ac.a.Codigo)
+                    {
+                        ac.codVulns.Add(codv);
+                        return true;
+                    }
+                return false;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Erro: " + e.Message);
+                return false;
+            }
         }
 
         /// <summary>
@@ -112,13 +144,21 @@ namespace a3_DadosClasses
         /// False se não for removida</returns>
         public static bool RemoveVulnerabilidade(int cod, int codv)
         {
-            foreach (AuditoriaCompleta ac in aud)
-                if (cod == ac.a.Codigo)
-                {
-                    ac.codVulns.Remove(codv);
-                    return true;
-                }
-            return false;
+            try
+            {
+                foreach (AuditoriaCompleta ac in aud)
+                    if (cod == ac.a.Codigo)
+                    {
+                        ac.codVulns.Remove(codv);
+                        return true;
+                    }
+                return false;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Erro: " + e.Message);
+                return false;
+            }
         }
 
         /// <summary>
@@ -129,14 +169,22 @@ namespace a3_DadosClasses
         /// False se as informações não forem editadas corretamente </returns>
         public static bool EditaAuditoria(Auditoria a)
         {
-            if (ExisteAuditoria(a.Codigo) == false) return false;
-            for (int i = 0; i < aud.Count; i++)
-                if (aud[i].a.Codigo == a.Codigo)
-                {
-                    aud[i].a.DataRegisto = a.DataRegisto;
-                    aud[i].a.Duracao = a.Duracao;
-                }
-            return true;
+            try
+            {
+                if (ExisteAuditoria(a.Codigo) == false) return false;
+                for (int i = 0; i < aud.Count; i++)
+                    if (aud[i].a.Codigo == a.Codigo)
+                    {
+                        aud[i].a.DataRegisto = a.DataRegisto;
+                        aud[i].a.Duracao = a.Duracao;
+                    }
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Erro: " + e.Message);
+                return false;
+            }
         }
 
         /// <summary>
@@ -145,12 +193,17 @@ namespace a3_DadosClasses
         /// <param name="a">Auditoria Completa </param>
         public static void MostraAuditorias()/* TEM WRITELINES! */
         {
-            Console.WriteLine(":{0, -78}:\n:{1, -78}:", "-> Lista de Auditorias", " ");
-            Console.WriteLine(": {0, -7}: {1, -11}: {2,-8}: {3, -12}: {4, -12}: {5, -17}:", "Código", "Data", "Duração", "Colaborador", "Equipamento", "Vulnerabilidades");
-            Console.WriteLine(": {0, -7}: {1, -11}: {2,-8}: {3, -12}: {4, -12}: {5, -17}:", "", "", "", "", "", "");
-            foreach (AuditoriaCompleta ac in aud)
+            try
             {
-                Console.WriteLine(": {0, -7}: {1, -11}: {2,-3} min : {3, -12}: {4, -12}: {5, -17}:", ac.a.Codigo.ToString(), ac.a.DataRegisto.ToShortDateString(), ac.a.Duracao.ToString(), ac.a.CodColab.ToString(), ac.a.CodEqui.ToString(), ac.codVulns.Count.ToString());
+                Console.WriteLine(":{0, -78}:\n:{1, -78}:", "-> Lista de Auditorias", " ");
+                Console.WriteLine(": {0, -7}: {1, -11}: {2,-8}: {3, -12}: {4, -12}: {5, -17}:", "Código", "Data", "Duração", "Colaborador", "Equipamento", "Vulnerabilidades");
+                Console.WriteLine(": {0, -7}: {1, -11}: {2,-8}: {3, -12}: {4, -12}: {5, -17}:", "", "", "", "", "", "");
+                foreach (AuditoriaCompleta ac in aud)
+                    Console.WriteLine(": {0, -7}: {1, -11}: {2,-3} min : {3, -12}: {4, -12}: {5, -17}:", ac.a.Codigo.ToString(), ac.a.DataRegisto.ToShortDateString(), ac.a.Duracao.ToString(), ac.a.CodColab.ToString(), ac.a.CodEqui.ToString(), ac.codVulns.Count.ToString());
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Erro: " + e.Message);
             }
         }
 
@@ -162,26 +215,34 @@ namespace a3_DadosClasses
         /// False se não forem apresentadas auditorias</returns>
         public static bool ApresentaAuditoriasColaborador(int codc)/* TEM WRITELINES! */
         {
-            bool x = false;
-            Console.WriteLine(" Auditorias por Colaborador:");
-            Console.WriteLine(" Codigo Colaborador: {0}\n", codc.ToString());
-            for (int i = 0; i < aud.Count; i++)
+            try
             {
-                if (aud[i].a.CodColab == codc)
+                bool x = false;
+                Console.WriteLine(" Auditorias por Colaborador:");
+                Console.WriteLine(" Codigo Colaborador: {0}\n", codc.ToString());
+                for (int i = 0; i < aud.Count; i++)
                 {
-                    Console.WriteLine("Auditoria {0}:", i + 1);
-                    Console.WriteLine("Codigo: {0}", aud[i].a.Codigo.ToString());
-                    Console.WriteLine("Data: {0}", aud[i].a.DataRegisto.ToShortDateString());
-                    Console.WriteLine("Quantidade Vulnerabilidades: {0}", aud[i].codVulns.Count.ToString());
-                    x = true;
+                    if (aud[i].a.CodColab == codc)
+                    {
+                        Console.WriteLine("Auditoria {0}:", i + 1);
+                        Console.WriteLine("Codigo: {0}", aud[i].a.Codigo.ToString());
+                        Console.WriteLine("Data: {0}", aud[i].a.DataRegisto.ToShortDateString());
+                        Console.WriteLine("Quantidade Vulnerabilidades: {0}", aud[i].codVulns.Count.ToString());
+                        x = true;
+                    }
+                    if (i == (aud.Count - 1) && x == false)
+                    {
+                        Console.WriteLine("O colaborador não tem Auditorias registadas.");
+                        return false;
+                    }
                 }
-                if (i == (aud.Count - 1) && x == false)
-                {
-                    Console.WriteLine("O colaborador não tem Auditorias registadas.");
-                    return false;
-                }
+                return true;
             }
-            return true;
+            catch (Exception e)
+            {
+                Console.WriteLine("Erro: " + e.Message);
+                return false;
+            }
         }
 
         /// <summary>
@@ -189,27 +250,32 @@ namespace a3_DadosClasses
         /// </summary>
         public static void ApresentaAuditoriasOrdenadasVuln()
         {
-            List<AuditoriaCompleta> aux = new List<AuditoriaCompleta>();
-            AuditoriaCompleta x;
-            aux = aud;
-            for (int i = 0; i < aux.Count - 1; i++)
+            try
             {
-                for (int j = i + 1; i < aux.Count; i++)
+                List<AuditoriaCompleta> aux = new List<AuditoriaCompleta>();
+                AuditoriaCompleta x;
+                aux = aud;
+                for (int i = 0; i < aux.Count - 1; i++)
                 {
-                    if (aux[i].codVulns.Count < aux[j].codVulns.Count)
+                    for (int j = i + 1; i < aux.Count; i++)
                     {
-                        x = aux[i];
-                        aux[i] = aux[j];
-                        aux[j] = x;
+                        if (aux[i].codVulns.Count < aux[j].codVulns.Count)
+                        {
+                            x = aux[i];
+                            aux[i] = aux[j];
+                            aux[j] = x;
+                        }
                     }
                 }
+                Console.WriteLine(":{0, -78}:\n:{1, -78}:", "-> Lista de Auditorias por Ordem Decrescente de Vulnerabilidades", " ");
+                Console.WriteLine(": {0, -7}: {1, -11}: {2,-8}: {3, -12}: {4, -12}: {5, -17}:", "Código", "Data", "Duração", "Colaborador", "Equipamento", "Vulnerabilidades");
+                Console.WriteLine(": {0, -7}: {1, -11}: {2,-8}: {3, -12}: {4, -12}: {5, -17}:", "", "", "", "", "", "");
+                foreach (AuditoriaCompleta ac in aux)
+                    Console.WriteLine(": {0, -7}: {1, -11}: {2,-3} min : {3, -12}: {4, -12}: {5, -17}:", ac.a.Codigo.ToString(), ac.a.DataRegisto.ToShortDateString(), ac.a.Duracao.ToString(), ac.a.CodColab.ToString(), ac.a.CodEqui.ToString(), ac.codVulns.Count.ToString());
             }
-            Console.WriteLine(":{0, -78}:\n:{1, -78}:", "-> Lista de Auditorias por Ordem Decrescente de Vulnerabilidades", " ");
-            Console.WriteLine(": {0, -7}: {1, -11}: {2,-8}: {3, -12}: {4, -12}: {5, -17}:", "Código", "Data", "Duração", "Colaborador", "Equipamento", "Vulnerabilidades");
-            Console.WriteLine(": {0, -7}: {1, -11}: {2,-8}: {3, -12}: {4, -12}: {5, -17}:", "", "", "", "", "", "");
-            foreach (AuditoriaCompleta ac in aux)
+            catch (Exception e)
             {
-                Console.WriteLine(": {0, -7}: {1, -11}: {2,-3} min : {3, -12}: {4, -12}: {5, -17}:", ac.a.Codigo.ToString(), ac.a.DataRegisto.ToShortDateString(), ac.a.Duracao.ToString(), ac.a.CodColab.ToString(), ac.a.CodEqui.ToString(), ac.codVulns.Count.ToString());
+                Console.WriteLine("Erro: " + e.Message);
             }
         }
 
@@ -220,10 +286,18 @@ namespace a3_DadosClasses
         /// <returns>Devolve auditoria completa</returns>
         public static Auditoria ObterAuditoria(int cod)
         {
-            foreach (AuditoriaCompleta ac in aud)
-                if (ac.a.Codigo == cod)
-                    return ac.a;
-            return null;
+            try
+            {
+                foreach (AuditoriaCompleta ac in aud)
+                    if (ac.a.Codigo == cod)
+                        return ac.a;
+                return null;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Erro: " + e.Message);
+                return null;
+            }
         }
 
         /// <summary>
@@ -233,10 +307,18 @@ namespace a3_DadosClasses
         /// <returns>Quantidade de vulnerabilidades da auditoria</returns>
         public static int ObterQuantidadeVulnerabilidadesAuditoria(int cod)
         {
-            foreach (AuditoriaCompleta ac in aud)
-                if (ac.a.Codigo == cod)
-                    return ac.codVulns.Count;
-            return 0;
+            try
+            {
+                foreach (AuditoriaCompleta ac in aud)
+                    if (ac.a.Codigo == cod)
+                        return ac.codVulns.Count;
+                return 0;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Erro: " + e.Message);
+                return 0;
+            }
         }
 
         /// <summary>
@@ -245,16 +327,24 @@ namespace a3_DadosClasses
         /// <returns>Auditoria com mais vulnerabilidades</returns>
         public static Auditoria ObterAuditoriaMaisVuln()
         {
-            int maior = 0;
-            Auditoria audmaior = new Auditoria();
-            for (int i = 0; i < aud.Count; i++)
-                if (aud[i].codVulns.Count >= maior)
-                {
-                    audmaior = aud[i].a;
-                    maior = aud[i].codVulns.Count;
-                }
+            try
+            {
+                int maior = 0;
+                Auditoria audmaior = new Auditoria();
+                for (int i = 0; i < aud.Count; i++)
+                    if (aud[i].codVulns.Count >= maior)
+                    {
+                        audmaior = aud[i].a;
+                        maior = aud[i].codVulns.Count;
+                    }
+                return audmaior;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Erro: " + e.Message);
+                return null;
+            }
 
-            return audmaior;
         }
 
         /// <summary>
@@ -263,12 +353,20 @@ namespace a3_DadosClasses
         /// <returns>Auditoria com menos vulnerabilidades</returns>
         public static Auditoria ObterAuditoriaMenosVuln()
         {
-            int menor = 9999999;
-            Auditoria audmenor = new Auditoria();
-            for (int i = 0; i < aud.Count; i++)
-                if (aud[i].codVulns.Count <= menor)
-                    audmenor = aud[i].a;
-            return audmenor;
+            try
+            {
+                int menor = 9999999;
+                Auditoria audmenor = new Auditoria();
+                for (int i = 0; i < aud.Count; i++)
+                    if (aud[i].codVulns.Count <= menor)
+                        audmenor = aud[i].a;
+                return audmenor;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Erro: " + e.Message);
+                return null;
+            }
         }
 
         /// <summary>
@@ -277,10 +375,18 @@ namespace a3_DadosClasses
         /// <returns>Media de vulnerabilidades registadas</returns>
         public static float ObtemMediaVulns()
         {
-            int soma = 0;
-            foreach (AuditoriaCompleta ac in aud)
-                soma += ac.codVulns.Count;
-            return soma / (float)aud.Count;
+            try
+            {
+                int soma = 0;
+                foreach (AuditoriaCompleta ac in aud)
+                    soma += ac.codVulns.Count;
+                return soma / (float)aud.Count;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Erro: " + e.Message);
+                return 0;
+            }
         }
 
         /// <summary>

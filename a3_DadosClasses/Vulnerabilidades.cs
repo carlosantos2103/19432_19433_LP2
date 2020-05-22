@@ -56,10 +56,19 @@ namespace a3_DadosClasses
         /// 1 se for inserida a vulnerabilidade</returns>
         public static int RegistaVulnerabilidade(Vulnerabilidade v)
         {
-            v.Codigo = (vul.Count) + 1;
-            if (ExisteVulnerabilidade(v.Codigo) == true) return 0;
-            vul.Add(v);
-            return v.Codigo;
+            try
+            {
+                v.Codigo = (vul.Count) + 1;
+                if (ExisteVulnerabilidade(v.Codigo) == true) return 0;
+                vul.Add(v);
+                return v.Codigo;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Erro: " + e.Message);
+            }
+
+            return 0;
         }
 
         /// <summary>
@@ -70,8 +79,16 @@ namespace a3_DadosClasses
         /// False se não existir</returns>
         private static bool ExisteVulnerabilidade(int cod)
         {
-            foreach (Vulnerabilidade v in vul)
-                if (v.Codigo == cod) return true;
+            try
+            {
+                foreach (Vulnerabilidade v in vul)
+                    if (v.Codigo == cod) return true;
+                return false;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Erro: " + e.Message);
+            }
             return false;
         }
 
@@ -83,11 +100,19 @@ namespace a3_DadosClasses
         /// False se as informações não forem editadas corretamente </returns>
         public static bool EditaVulnerabilidade(Vulnerabilidade v)
         {
-            if (ExisteVulnerabilidade(v.Codigo) == false) return false;
-            for (int i = 0; i < vul.Count; i++)
-                if (vul[i].Codigo == v.Codigo)
-                    vul[i] = v;
-            return true;
+            try
+            {
+                if (ExisteVulnerabilidade(v.Codigo) == false) return false;
+                for (int i = 0; i < vul.Count; i++)
+                    if (vul[i].Codigo == v.Codigo)
+                        vul[i] = v;
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Erro: " + e.Message);
+            }
+            return false;
         }
 
         /// <summary>
@@ -96,35 +121,42 @@ namespace a3_DadosClasses
         /// <param name="lst">Lista de codigos de vulnerabilidades</param>
         public static void ListarVulnerabilidadesImpacto(List<int> lst)/*TEM WRITELINES*/
         {
-            Vulnerabilidade aux2;
-            List<Vulnerabilidade> aux = new List<Vulnerabilidade>();
+            try
+            {
+                Vulnerabilidade aux2;
+                List<Vulnerabilidade> aux = new List<Vulnerabilidade>();
 
-            foreach (int i in lst)
-                foreach (Vulnerabilidade v in vul)
-                    if (i == v.Codigo)
-                    {
-                        aux.Add(v);
-                    }
-            for (int i = 0; i < aux.Count - 1; i++)
-                for (int j = i + 1; j < aux.Count; j++)
-                    if (aux[i].Impacto > aux[j].Impacto)
-                    {
-                        aux2 = aux[i];
-                        aux[i] = aux[j];
-                        aux[j] = aux2;
-                    }
-            Console.Write("\nBaixo: ");
-            foreach (Vulnerabilidade v in aux)
-                if (v.Impacto == NivelImpacto.BAIXO)
-                    Console.Write("{0} | ", v.Codigo);
-            Console.Write("\nModerado: ");
-            foreach (Vulnerabilidade v in aux)
-                if (v.Impacto == NivelImpacto.MODERADO)
-                    Console.Write("{0} | ", v.Codigo);
-            Console.Write("\nElevado: ");
-            foreach (Vulnerabilidade v in aux)
-                if (v.Impacto == NivelImpacto.BAIXO)
-                    Console.WriteLine("{0} | ", v.Codigo);
+                foreach (int i in lst)
+                    foreach (Vulnerabilidade v in vul)
+                        if (i == v.Codigo)
+                        {
+                            aux.Add(v);
+                        }
+                for (int i = 0; i < aux.Count - 1; i++)
+                    for (int j = i + 1; j < aux.Count; j++)
+                        if (aux[i].Impacto > aux[j].Impacto)
+                        {
+                            aux2 = aux[i];
+                            aux[i] = aux[j];
+                            aux[j] = aux2;
+                        }
+                Console.Write("\nBaixo: ");
+                foreach (Vulnerabilidade v in aux)
+                    if (v.Impacto == NivelImpacto.BAIXO)
+                        Console.Write("{0} | ", v.Codigo);
+                Console.Write("\nModerado: ");
+                foreach (Vulnerabilidade v in aux)
+                    if (v.Impacto == NivelImpacto.MODERADO)
+                        Console.Write("{0} | ", v.Codigo);
+                Console.Write("\nElevado: ");
+                foreach (Vulnerabilidade v in aux)
+                    if (v.Impacto == NivelImpacto.BAIXO)
+                        Console.WriteLine("{0} | ", v.Codigo);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Erro: " + e.Message);
+            }
         }
 
         /// <summary>
@@ -133,9 +165,16 @@ namespace a3_DadosClasses
         /// <param name="cod">Codigo de Vulnerabilidade</param>
         public static void ListarVulnerabilidadeEquipamento(int cod) /*TEM WRITELINES*/
         {
-            foreach (Vulnerabilidade v in vul)
-                if (v.Codigo == cod)
-                    Console.WriteLine("Vulnerabilidade:\nCódigo: {0}\nEstado: {1}\nImpacto: {2}\n", v.Codigo.ToString(), v.Estado.ToString(), v.Impacto.ToString());
+            try
+            {
+                foreach (Vulnerabilidade v in vul)
+                    if (v.Codigo == cod)
+                        Console.WriteLine("Vulnerabilidade:\nCódigo: {0}\nEstado: {1}\nImpacto: {2}\n", v.Codigo.ToString(), v.Estado.ToString(), v.Impacto.ToString());
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Erro: " + e.Message);
+            }
         }
 
         /// <summary>
@@ -154,7 +193,12 @@ namespace a3_DadosClasses
             }
             catch (IOException e)
             {
-                Console.Write("ERRO:" + e.Message);
+                Console.Write("Erro:" + e.Message);
+                return false;
+            }
+            catch (Exception e)
+            {
+                Console.Write("Erro:" + e.Message);
                 return false;
             }
         }
@@ -178,6 +222,11 @@ namespace a3_DadosClasses
                 catch (IOException e)
                 {
                     Console.Write("ERRO:" + e.Message);
+                    return false;
+                }
+                catch (Exception e)
+                {
+                    Console.Write("Erro:" + e.Message);
                     return false;
                 }
             }

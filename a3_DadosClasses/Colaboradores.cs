@@ -56,10 +56,18 @@ namespace a3_DadosClasses
         /// true se for inserido o colaborador</returns>
         public static bool RegistaColaborador(Colaborador c)
         {
-            if (PesquisaColaborador(c.Nif) != 0) return false;
-            c.Codigo = (col.Count) + 1;
-            col.Add(c);
-            return true;
+            try
+            {
+                if (PesquisaColaborador(c.Nif) != 0) return false;
+                c.Codigo = (col.Count) + 1;
+                col.Add(c);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Erro: " + e.Message);
+                return false;
+            }
         }
 
         /// <summary>
@@ -70,16 +78,24 @@ namespace a3_DadosClasses
         /// False se as informações não forem editadas corretamente </returns>
         public static bool EditaColaborador(Colaborador c)
         {
-            if (ExisteColaborador(c.Codigo) == false) return false;
-            for (int i = 0; i < col.Count; i++)
-                if (col[i].Codigo == c.Codigo)
-                {
-                    col[i].Genero = c.Genero;
-                    col[i].Idade = c.Idade;
-                    col[i].Nome = c.Nome;
-                    col[i].Nif = c.Nif;
-                }
-            return true;
+            try
+            {
+                if (ExisteColaborador(c.Codigo) == false) return false;
+                for (int i = 0; i < col.Count; i++)
+                    if (col[i].Codigo == c.Codigo)
+                    {
+                        col[i].Genero = c.Genero;
+                        col[i].Idade = c.Idade;
+                        col[i].Nome = c.Nome;
+                        col[i].Nif = c.Nif;
+                    }
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Erro: " + e.Message);
+                return false;
+            }
         }
 
         /// <summary>
@@ -90,9 +106,17 @@ namespace a3_DadosClasses
         /// False se não existir</returns>
         public static bool ExisteColaborador(int cod)
         {
-            foreach (Colaborador c in col)
-                if (c.Codigo == cod) return true;
-            return false;
+            try
+            {
+                foreach (Colaborador c in col)
+                    if (c.Codigo == cod) return true;
+                return false;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Erro: " + e.Message);
+                return false;
+            }
         }
 
         /// <summary>
@@ -103,9 +127,17 @@ namespace a3_DadosClasses
         /// 0 se não for encontrado o colaborador</returns>
         public static int PesquisaColaborador(int nif)
         {
-            foreach (Colaborador c in col)
-                if (c.Nif == nif) return c.Codigo;
-            return 0;
+            try
+            {
+                foreach (Colaborador c in col)
+                    if (c.Nif == nif) return c.Codigo;
+                return 0;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Erro: " + e.Message);
+                return 0;
+            }
         }
 
         /// <summary>
@@ -116,11 +148,19 @@ namespace a3_DadosClasses
         /// false se não for encontrado o colaborador</returns>
         public static bool AdicionaAuditoriaColaborador(int cod)
         {
-            if (ExisteColaborador(cod) == false) return false;
-            for (int i = 0; i < col.Count; i++)
-                if (col[i].Codigo == cod)
-                    col[i].QuantAuds++;
-            return true;
+            try
+            {
+                if (ExisteColaborador(cod) == false) return false;
+                for (int i = 0; i < col.Count; i++)
+                    if (col[i].Codigo == cod)
+                        col[i].QuantAuds++;
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Erro: " + e.Message);
+                return false;
+            }
         }
 
         /// <summary>
@@ -131,13 +171,21 @@ namespace a3_DadosClasses
         /// False se não tornar um colaborador inativo</returns>
         public static bool TornarColaboradorInativo(int cod)
         {
-            foreach (Colaborador c in col)
-                if (c.Codigo == cod && c.Atividade == Atividade.ATIVO)
-                {
-                    c.Atividade = Atividade.INATIVO;
-                    return true;
-                }
-            return false;
+            try
+            {
+                foreach (Colaborador c in col)
+                    if (c.Codigo == cod && c.Atividade == Atividade.ATIVO)
+                    {
+                        c.Atividade = Atividade.INATIVO;
+                        return true;
+                    }
+                return false;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Erro: " + e.Message);
+                return false;
+            }
         }
 
         /// <summary>
@@ -148,10 +196,18 @@ namespace a3_DadosClasses
         /// False se estiver Inativo </returns>
         public static bool VerificaAtividade(int cod)
         {
-            foreach (Colaborador c in col)
-                if (c.Codigo == cod)
-                    if (c.Atividade == Atividade.ATIVO) return true;
-            return false;
+            try
+            {
+                foreach (Colaborador c in col)
+                    if (c.Codigo == cod)
+                        if (c.Atividade == Atividade.ATIVO) return true;
+                return false;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Erro: " + e.Message);
+                return false;
+            }
         }
 
         /// <summary>
@@ -159,12 +215,17 @@ namespace a3_DadosClasses
         /// </summary>
         public static void MostraColaboradores()/* TEM WRITELINES! */
         {
-            Console.WriteLine(":{0, -78}:\n:{1, -78}:", "-> Lista de Colaboradores", " ");
-            Console.WriteLine(": {0, -7}: {1, -13}: {2,-10}: {3, -7}: {4, -6}: {5, -11}: {6, -11}:", "Código", "Nome", "Nif", "Idade", "Sexo", "Atividade", "Auditorias");
-            Console.WriteLine(": {0, -7}: {1, -13}: {2,-10}: {3, -7}: {4, -6}: {5, -11}: {6, -11}:", "", "", "", "", "", "", "");
-            foreach (Colaborador c in col)
+            try
             {
-                Console.WriteLine(": {0, -7}: {1, -13}: {2,-10}: {3, -7}: {4, -6}: {5, -11}: {6, -11}:", c.Codigo.ToString(), c.Nome, c.Nif.ToString(), c.Idade.ToString(), c.Genero.ToString(), c.Atividade.ToString(), c.QuantAuds.ToString());
+                Console.WriteLine(":{0, -78}:\n:{1, -78}:", "-> Lista de Colaboradores", " ");
+                Console.WriteLine(": {0, -7}: {1, -13}: {2,-10}: {3, -7}: {4, -6}: {5, -11}: {6, -11}:", "Código", "Nome", "Nif", "Idade", "Sexo", "Atividade", "Auditorias");
+                Console.WriteLine(": {0, -7}: {1, -13}: {2,-10}: {3, -7}: {4, -6}: {5, -11}: {6, -11}:", "", "", "", "", "", "", "");
+                foreach (Colaborador c in col)
+                    Console.WriteLine(": {0, -7}: {1, -13}: {2,-10}: {3, -7}: {4, -6}: {5, -11}: {6, -11}:", c.Codigo.ToString(), c.Nome, c.Nif.ToString(), c.Idade.ToString(), c.Genero.ToString(), c.Atividade.ToString(), c.QuantAuds.ToString());
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Erro: " + e.Message);
             }
         }
 

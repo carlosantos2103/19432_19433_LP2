@@ -56,11 +56,19 @@ namespace a3_DadosClasses
         /// 0 se não for inserido o equipamento</returns>
         public static int RegistaEquipamento(Equipamento e)
         {
-            EquipamentoCompleto ec = new EquipamentoCompleto(e);
-            ec.e.Codigo = (equ.Count) + 1;
-            if (ExisteEquipamento(e.Codigo) == true) return 0;
-            equ.Add(ec);
-            return ec.e.Codigo;
+            try
+            {
+                EquipamentoCompleto ec = new EquipamentoCompleto(e);
+                ec.e.Codigo = (equ.Count) + 1;
+                if (ExisteEquipamento(e.Codigo) == true) return 0;
+                equ.Add(ec);
+                return ec.e.Codigo;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Erro: " + e.Message);
+                return 0;
+            }
         }
 
         /// <summary>
@@ -71,9 +79,17 @@ namespace a3_DadosClasses
         /// False se não existir</returns>
         public static bool ExisteEquipamento(int cod)
         {
-            foreach (EquipamentoCompleto ec in equ)
-                if (ec.e.Codigo == cod) return true;
-            return false;
+            try
+            {
+                foreach (EquipamentoCompleto ec in equ)
+                    if (ec.e.Codigo == cod) return true;
+                return false;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Erro: " + e.Message);
+                return false;
+            }
         }
 
         /// <summary>
@@ -84,16 +100,24 @@ namespace a3_DadosClasses
         /// False se as informações não forem editadas corretamente </returns>
         public static bool EditaEquipamento(Equipamento e)
         {
-            if (ExisteEquipamento(e.Codigo) == false) return false;
-            for (int i = 0; i < equ.Count; i++)
-                if (equ[i].e.Codigo == e.Codigo)
-                {
-                    equ[i].e.DataAquisicao = e.DataAquisicao;
-                    equ[i].e.Marca = e.Marca;
-                    equ[i].e.Modelo = e.Modelo;
-                    equ[i].e.Tipo = e.Tipo;
-                }
-            return true;
+            try
+            {
+                if (ExisteEquipamento(e.Codigo) == false) return false;
+                for (int i = 0; i < equ.Count; i++)
+                    if (equ[i].e.Codigo == e.Codigo)
+                    {
+                        equ[i].e.DataAquisicao = e.DataAquisicao;
+                        equ[i].e.Marca = e.Marca;
+                        equ[i].e.Modelo = e.Modelo;
+                        equ[i].e.Tipo = e.Tipo;
+                    }
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Erro: " + e.Message);
+                return false;
+            }
         }
 
         /// <summary>
@@ -105,13 +129,21 @@ namespace a3_DadosClasses
         /// False se não for adicionada</returns>
         public static bool AdicionaVulnerabilidadeEquipamento(int cod, int codv)
         {
-            foreach (EquipamentoCompleto ec in equ)
-                if (cod == ec.e.Codigo)
-                {
-                    ec.codVulns.Add(codv);
-                    return true;
-                }
-            return false;
+            try
+            {
+                foreach (EquipamentoCompleto ec in equ)
+                    if (cod == ec.e.Codigo)
+                    {
+                        ec.codVulns.Add(codv);
+                        return true;
+                    }
+                return false;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Erro: " + e.Message);
+                return false;
+            }
         }
 
         /// <summary>
@@ -120,12 +152,19 @@ namespace a3_DadosClasses
         /// <param name="e">Equipamento Completo </param>
         public static void MostraEquipamentos() /* TEM WRITELINES! */
         {
-            Console.WriteLine(":{0, -78}:\n:{1, -78}:", "-> Lista de Equipamentos", " ");
-            Console.WriteLine(": {0, -7}: {1, -11}: {2,-10}: {3, -10}: {4, -12}: {5, -17}:", "Código", "Data", "Tipo", "Marca", "Modelo", "Vulnerabilidades");
-            Console.WriteLine(": {0, -7}: {1, -11}: {2,-10}: {3, -10}: {4, -12}: {5, -17}:", "", "", "", "", "", "");
-            foreach (EquipamentoCompleto ec in equ)
+            try
             {
-                Console.WriteLine(": {0, -7}: {1, -11}: {2,-10}: {3, -10}: {4, -12}: {5, -17}:", ec.e.Codigo.ToString(), ec.e.DataAquisicao.ToShortDateString(), ec.e.Tipo, ec.e.Marca, ec.e.Modelo, ec.codVulns.Count.ToString());
+                Console.WriteLine(":{0, -78}:\n:{1, -78}:", "-> Lista de Equipamentos", " ");
+                Console.WriteLine(": {0, -7}: {1, -11}: {2,-10}: {3, -10}: {4, -12}: {5, -17}:", "Código", "Data", "Tipo", "Marca", "Modelo", "Vulnerabilidades");
+                Console.WriteLine(": {0, -7}: {1, -11}: {2,-10}: {3, -10}: {4, -12}: {5, -17}:", "", "", "", "", "", "");
+                foreach (EquipamentoCompleto ec in equ)
+                {
+                    Console.WriteLine(": {0, -7}: {1, -11}: {2,-10}: {3, -10}: {4, -12}: {5, -17}:", ec.e.Codigo.ToString(), ec.e.DataAquisicao.ToShortDateString(), ec.e.Tipo, ec.e.Marca, ec.e.Modelo, ec.codVulns.Count.ToString());
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Erro: " + e.Message);
             }
         }
 
@@ -136,10 +175,18 @@ namespace a3_DadosClasses
         /// <returns>Devolve equipamento completo</returns>
         public static Equipamento ObterEquipamento(int cod)
         {
-            foreach (EquipamentoCompleto ec in equ)
-                if (ec.e.Codigo == cod)
-                    return ec.e;
-            return null;
+            try
+            {
+                foreach (EquipamentoCompleto ec in equ)
+                    if (ec.e.Codigo == cod)
+                        return ec.e;
+                return null;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Erro: " + e.Message);
+                return null;
+            }
         }
 
         /// <summary>
@@ -149,10 +196,18 @@ namespace a3_DadosClasses
         /// <returns>Quantidade de vulnerabilidades do equipamento</returns>
         public static int ObterQuantidadeVulnerabilidadesEquipamento(int cod)
         {
-            foreach (EquipamentoCompleto ec in equ)
-                if (ec.e.Codigo == cod)
-                    return ec.codVulns.Count;
-            return 0;
+            try
+            {
+                foreach (EquipamentoCompleto ec in equ)
+                    if (ec.e.Codigo == cod)
+                        return ec.codVulns.Count;
+                return 0;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Erro: " + e.Message);
+                return 0;
+            }
         }
 
         /// <summary>
@@ -163,21 +218,18 @@ namespace a3_DadosClasses
         /// <returns>Código da vulnerabilidade</returns>
         public static int ObterCodigoVulnerabilidade(int cod, int pos)
         {
-            foreach (EquipamentoCompleto ec in equ)
-                try
-                {
+            try
+            {
+                foreach (EquipamentoCompleto ec in equ)
                     if (ec.e.Codigo == cod)
                         return ec.codVulns[pos];
-                }
-                catch (IndexOutOfRangeException e)
-                {
-                    Console.WriteLine("Erro: " + e);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("Erro: " + e);
-                }
-            return 0;
+                return 0;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Erro: " + e.Message);
+                return 0;
+            }
         }
 
         /// <summary>
