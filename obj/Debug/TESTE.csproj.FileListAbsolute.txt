@@ -1,8 +1,0 @@
-C:\Users\carlo\Desktop\TESTE\bin\Debug\TESTE.exe.config
-C:\Users\carlo\Desktop\TESTE\bin\Debug\TESTE.exe
-C:\Users\carlo\Desktop\TESTE\bin\Debug\TESTE.pdb
-C:\Users\carlo\Desktop\TESTE\bin\Debug\TESTE.exe.CodeAnalysisLog.xml
-C:\Users\carlo\Desktop\TESTE\bin\Debug\TESTE.exe.lastcodeanalysissucceeded
-C:\Users\carlo\Desktop\TESTE\obj\Debug\TESTE.csprojAssemblyReference.cache
-C:\Users\carlo\Desktop\TESTE\obj\Debug\TESTE.exe
-C:\Users\carlo\Desktop\TESTE\obj\Debug\TESTE.pdb

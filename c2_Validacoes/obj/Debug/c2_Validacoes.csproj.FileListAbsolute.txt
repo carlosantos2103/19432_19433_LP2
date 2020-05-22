@@ -1,0 +1,12 @@
+C:\Users\carlo\OneDrive\LESI\1Ano_2Sem\LP_II\TrabalhoPratico1_LP2\c2_Validacoes\bin\Debug\c2_Validacoes.dll
+C:\Users\carlo\OneDrive\LESI\1Ano_2Sem\LP_II\TrabalhoPratico1_LP2\c2_Validacoes\bin\Debug\c2_Validacoes.pdb
+C:\Users\carlo\OneDrive\LESI\1Ano_2Sem\LP_II\TrabalhoPratico1_LP2\c2_Validacoes\obj\Debug\c2_Validacoes.csproj.CoreCompileInputs.cache
+C:\Users\carlo\OneDrive\LESI\1Ano_2Sem\LP_II\TrabalhoPratico1_LP2\c2_Validacoes\obj\Debug\c2_Validacoes.dll
+C:\Users\carlo\OneDrive\LESI\1Ano_2Sem\LP_II\TrabalhoPratico1_LP2\c2_Validacoes\obj\Debug\c2_Validacoes.pdb
+C:\Users\carlo\OneDrive\LESI\1Ano_2Sem\LP_II\TrabalhoPratico1_LP2\c2_Validacoes\obj\Debug\c2_Validacoes.csprojAssemblyReference.cache
+C:\Users\ruben\OneDrive\TrabalhoPratico1_LP2\c2_Validacoes\obj\Debug\c2_Validacoes.csprojAssemblyReference.cache
+C:\Users\ruben\OneDrive\TrabalhoPratico1_LP2\c2_Validacoes\obj\Debug\c2_Validacoes.csproj.CoreCompileInputs.cache
+C:\Users\ruben\OneDrive\TrabalhoPratico1_LP2\c2_Validacoes\obj\Debug\c2_Validacoes.dll
+C:\Users\ruben\OneDrive\TrabalhoPratico1_LP2\c2_Validacoes\obj\Debug\c2_Validacoes.pdb
+C:\Users\ruben\OneDrive\TrabalhoPratico1_LP2\c2_Validacoes\bin\Debug\c2_Validacoes.dll
+C:\Users\ruben\OneDrive\TrabalhoPratico1_LP2\c2_Validacoes\bin\Debug\c2_Validacoes.pdb
