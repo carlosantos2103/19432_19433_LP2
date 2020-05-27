@@ -63,9 +63,9 @@ namespace a3_DadosClasses
                 vul.Add(v);
                 return v.Codigo;
             }
-            catch (Exception e)
+            catch (Exception x)
             {
-                Console.WriteLine("Erro: " + e.Message);
+                Console.WriteLine("Erro: " + x.Message);
             }
 
             return 0;
@@ -85,9 +85,9 @@ namespace a3_DadosClasses
                     if (v.Codigo == cod) return true;
                 return false;
             }
-            catch (Exception e)
+            catch (Exception x)
             {
-                Console.WriteLine("Erro: " + e.Message);
+                Console.WriteLine("Erro: " + x.Message);
             }
             return false;
         }
@@ -108,9 +108,9 @@ namespace a3_DadosClasses
                         vul[i] = v;
                 return true;
             }
-            catch (Exception e)
+            catch (Exception x)
             {
-                Console.WriteLine("Erro: " + e.Message);
+                Console.WriteLine("Erro: " + x.Message);
             }
             return false;
         }
@@ -153,9 +153,9 @@ namespace a3_DadosClasses
                     if (v.Impacto == NivelImpacto.BAIXO)
                         Console.WriteLine("{0} | ", v.Codigo);
             }
-            catch (Exception e)
+            catch (Exception x)
             {
-                Console.WriteLine("Erro: " + e.Message);
+                Console.WriteLine("Erro: " + x.Message);
             }
         }
 
@@ -171,9 +171,9 @@ namespace a3_DadosClasses
                     if (v.Codigo == cod)
                         Console.WriteLine("Vulnerabilidade:\nCódigo: {0}\nEstado: {1}\nImpacto: {2}\n", v.Codigo.ToString(), v.Estado.ToString(), v.Impacto.ToString());
             }
-            catch (Exception e)
+            catch (Exception x)
             {
-                Console.WriteLine("Erro: " + e.Message);
+                Console.WriteLine("Erro: " + x.Message);
             }
         }
 
@@ -191,14 +191,14 @@ namespace a3_DadosClasses
                 stream.Close();
                 return true;
             }
-            catch (IOException e)
+            catch (IOException x)
             {
-                Console.Write("Erro:" + e.Message);
+                Console.Write("Erro:" + x.Message);
                 return false;
             }
             catch (Exception e)
             {
-                Console.Write("Erro:" + e.Message);
+                Console.Write("Erro:" + x.Message);
                 return false;
             }
         }
@@ -219,14 +219,14 @@ namespace a3_DadosClasses
                     stream.Close();
                     return true;
                 }
-                catch (IOException e)
+                catch (IOException x)
                 {
-                    Console.Write("ERRO:" + e.Message);
+                    Console.Write("ERRO:" + x.Message);
                     return false;
                 }
-                catch (Exception e)
+                catch (Exception x)
                 {
-                    Console.Write("Erro:" + e.Message);
+                    Console.Write("Erro:" + x.Message);
                     return false;
                 }
             }

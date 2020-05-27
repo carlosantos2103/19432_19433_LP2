@@ -64,9 +64,9 @@ namespace a3_DadosClasses
                 equ.Add(ec);
                 return ec.e.Codigo;
             }
-            catch (Exception e)
+            catch (Exception x)
             {
-                Console.WriteLine("Erro: " + e.Message);
+                Console.WriteLine("Erro: " + x.Message);
                 return 0;
             }
         }
@@ -85,9 +85,9 @@ namespace a3_DadosClasses
                     if (ec.e.Codigo == cod) return true;
                 return false;
             }
-            catch (Exception e)
+            catch (Exception x)
             {
-                Console.WriteLine("Erro: " + e.Message);
+                Console.WriteLine("Erro: " + x.Message);
                 return false;
             }
         }
@@ -113,9 +113,9 @@ namespace a3_DadosClasses
                     }
                 return true;
             }
-            catch (Exception e)
+            catch (Exception x)
             {
-                Console.WriteLine("Erro: " + e.Message);
+                Console.WriteLine("Erro: " + x.Message);
                 return false;
             }
         }
@@ -139,9 +139,9 @@ namespace a3_DadosClasses
                     }
                 return false;
             }
-            catch (Exception e)
+            catch (Exception x)
             {
-                Console.WriteLine("Erro: " + e.Message);
+                Console.WriteLine("Erro: " + x.Message);
                 return false;
             }
         }
@@ -162,9 +162,9 @@ namespace a3_DadosClasses
                     Console.WriteLine(": {0, -7}: {1, -11}: {2,-10}: {3, -10}: {4, -12}: {5, -17}:", ec.e.Codigo.ToString(), ec.e.DataAquisicao.ToShortDateString(), ec.e.Tipo, ec.e.Marca, ec.e.Modelo, ec.codVulns.Count.ToString());
                 }
             }
-            catch (Exception e)
+            catch (Exception x)
             {
-                Console.WriteLine("Erro: " + e.Message);
+                Console.WriteLine("Erro: " + x.Message);
             }
         }
 
@@ -182,9 +182,9 @@ namespace a3_DadosClasses
                         return ec.e;
                 return null;
             }
-            catch (Exception e)
+            catch (Exception x)
             {
-                Console.WriteLine("Erro: " + e.Message);
+                Console.WriteLine("Erro: " + x.Message);
                 return null;
             }
         }
@@ -203,9 +203,9 @@ namespace a3_DadosClasses
                         return ec.codVulns.Count;
                 return 0;
             }
-            catch (Exception e)
+            catch (Exception x)
             {
-                Console.WriteLine("Erro: " + e.Message);
+                Console.WriteLine("Erro: " + x.Message);
                 return 0;
             }
         }
@@ -225,9 +225,9 @@ namespace a3_DadosClasses
                         return ec.codVulns[pos];
                 return 0;
             }
-            catch (Exception e)
+            catch (Exception x)
             {
-                Console.WriteLine("Erro: " + e.Message);
+                Console.WriteLine("Erro: " + x.Message);
                 return 0;
             }
         }
@@ -246,14 +246,14 @@ namespace a3_DadosClasses
                 stream.Close();
                 return true;
             }
-            catch (IOException e)
+            catch (IOException x)
             {
-                Console.Write("ERRO:" + e.Message);
+                Console.Write("ERRO:" + x.Message);
                 return false;
             }
-            catch (Exception e)
+            catch (Exception x)
             {
-                Console.Write("ERRO:" + e.Message);
+                Console.Write("ERRO:" + x.Message);
                 return false;
             }
         }
@@ -274,9 +274,9 @@ namespace a3_DadosClasses
                     stream.Close();
                     return true;
                 }
-                catch (IOException e)
+                catch (IOException x)
                 {
-                    Console.Write("ERRO:" + e.Message);
+                    Console.Write("ERRO:" + x.Message);
                     return false;
                 }
             }

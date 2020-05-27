@@ -44,6 +44,7 @@ namespace a2_RegrasNegocio
             {
                 Console.WriteLine(x.Message);
             }
+            return 0;
         }
 
         /// <summary>

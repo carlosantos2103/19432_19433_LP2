@@ -273,9 +273,9 @@ namespace a3_DadosClasses
                 foreach (AuditoriaCompleta ac in aux)
                     Console.WriteLine(": {0, -7}: {1, -11}: {2,-3} min : {3, -12}: {4, -12}: {5, -17}:", ac.a.Codigo.ToString(), ac.a.DataRegisto.ToShortDateString(), ac.a.Duracao.ToString(), ac.a.CodColab.ToString(), ac.a.CodEqui.ToString(), ac.codVulns.Count.ToString());
             }
-            catch (Exception e)
+            catch (Exception x)
             {
-                Console.WriteLine("Erro: " + e.Message);
+                Console.WriteLine("Erro: " + x.Message);
             }
         }
 
@@ -293,9 +293,9 @@ namespace a3_DadosClasses
                         return ac.a;
                 return null;
             }
-            catch (Exception e)
+            catch (Exception x)
             {
-                Console.WriteLine("Erro: " + e.Message);
+                Console.WriteLine("Erro: " + x.Message);
                 return null;
             }
         }
@@ -314,9 +314,9 @@ namespace a3_DadosClasses
                         return ac.codVulns.Count;
                 return 0;
             }
-            catch (Exception e)
+            catch (Exception x)
             {
-                Console.WriteLine("Erro: " + e.Message);
+                Console.WriteLine("Erro: " + x.Message);
                 return 0;
             }
         }
@@ -339,9 +339,9 @@ namespace a3_DadosClasses
                     }
                 return audmaior;
             }
-            catch (Exception e)
+            catch (Exception x)
             {
-                Console.WriteLine("Erro: " + e.Message);
+                Console.WriteLine("Erro: " + x.Message);
                 return null;
             }
 
@@ -362,9 +362,9 @@ namespace a3_DadosClasses
                         audmenor = aud[i].a;
                 return audmenor;
             }
-            catch (Exception e)
+            catch (Exception x)
             {
-                Console.WriteLine("Erro: " + e.Message);
+                Console.WriteLine("Erro: " + x.Message);
                 return null;
             }
         }
@@ -382,9 +382,9 @@ namespace a3_DadosClasses
                     soma += ac.codVulns.Count;
                 return soma / (float)aud.Count;
             }
-            catch (Exception e)
+            catch (Exception x)
             {
-                Console.WriteLine("Erro: " + e.Message);
+                Console.WriteLine("Erro: " + x.Message);
                 return 0;
             }
         }
@@ -403,9 +403,9 @@ namespace a3_DadosClasses
                 stream.Close();
                 return true;
             }
-            catch (IOException e)
+            catch (IOException x)
             {
-                Console.Write("ERRO:" + e.Message);
+                Console.Write("ERRO:" + x.Message);
                 return false;
             }
         }
@@ -426,9 +426,9 @@ namespace a3_DadosClasses
                     stream.Close();
                     return true;
                 }
-                catch (IOException e)
+                catch (IOException x)
                 {
-                    Console.Write("ERRO:" + e.Message);
+                    Console.Write("ERRO:" + x.Message);
                     return false;
                 }
             }

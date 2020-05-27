@@ -63,9 +63,9 @@ namespace a3_DadosClasses
                 col.Add(c);
                 return true;
             }
-            catch (Exception e)
+            catch (Exception x)
             {
-                Console.WriteLine("Erro: " + e.Message);
+                Console.WriteLine("Erro: " + x.Message);
                 return false;
             }
         }
@@ -91,9 +91,9 @@ namespace a3_DadosClasses
                     }
                 return true;
             }
-            catch (Exception e)
+            catch (Exception x)
             {
-                Console.WriteLine("Erro: " + e.Message);
+                Console.WriteLine("Erro: " + x.Message);
                 return false;
             }
         }
@@ -112,9 +112,9 @@ namespace a3_DadosClasses
                     if (c.Codigo == cod) return true;
                 return false;
             }
-            catch (Exception e)
+            catch (Exception x)
             {
-                Console.WriteLine("Erro: " + e.Message);
+                Console.WriteLine("Erro: " + x.Message);
                 return false;
             }
         }
@@ -133,9 +133,9 @@ namespace a3_DadosClasses
                     if (c.Nif == nif) return c.Codigo;
                 return 0;
             }
-            catch (Exception e)
+            catch (Exception x)
             {
-                Console.WriteLine("Erro: " + e.Message);
+                Console.WriteLine("Erro: " + x.Message);
                 return 0;
             }
         }
@@ -156,9 +156,9 @@ namespace a3_DadosClasses
                         col[i].QuantAuds++;
                 return true;
             }
-            catch (Exception e)
+            catch (Exception x)
             {
-                Console.WriteLine("Erro: " + e.Message);
+                Console.WriteLine("Erro: " + x.Message);
                 return false;
             }
         }
@@ -181,9 +181,9 @@ namespace a3_DadosClasses
                     }
                 return false;
             }
-            catch (Exception e)
+            catch (Exception x)
             {
-                Console.WriteLine("Erro: " + e.Message);
+                Console.WriteLine("Erro: " + x.Message);
                 return false;
             }
         }
@@ -203,9 +203,9 @@ namespace a3_DadosClasses
                         if (c.Atividade == Atividade.ATIVO) return true;
                 return false;
             }
-            catch (Exception e)
+            catch (Exception x)
             {
-                Console.WriteLine("Erro: " + e.Message);
+                Console.WriteLine("Erro: " + x.Message);
                 return false;
             }
         }
@@ -223,9 +223,9 @@ namespace a3_DadosClasses
                 foreach (Colaborador c in col)
                     Console.WriteLine(": {0, -7}: {1, -13}: {2,-10}: {3, -7}: {4, -6}: {5, -11}: {6, -11}:", c.Codigo.ToString(), c.Nome, c.Nif.ToString(), c.Idade.ToString(), c.Genero.ToString(), c.Atividade.ToString(), c.QuantAuds.ToString());
             }
-            catch (Exception e)
+            catch (Exception x)
             {
-                Console.WriteLine("Erro: " + e.Message);
+                Console.WriteLine("Erro: " + x.Message);
             }
         }
 
@@ -243,9 +243,9 @@ namespace a3_DadosClasses
                 stream.Close();
                 return true;
             }
-            catch (IOException e)
+            catch (IOException x)
             {
-                Console.Write("ERRO:" + e.Message);
+                Console.Write("ERRO:" + x.Message);
                 return false;
             }
         }
@@ -266,9 +266,9 @@ namespace a3_DadosClasses
                     stream.Close();
                     return true;
                 }
-                catch (IOException e)
+                catch (IOException x)
                 {
-                    Console.Write("ERRO:" + e.Message);
+                    Console.Write("ERRO:" + x.Message);
                     return false;
                 }
             }
