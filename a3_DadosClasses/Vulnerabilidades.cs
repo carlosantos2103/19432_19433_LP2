@@ -196,7 +196,7 @@ namespace a3_DadosClasses
                 Console.Write("Erro:" + x.Message);
                 return false;
             }
-            catch (Exception e)
+            catch (Exception x)
             {
                 Console.Write("Erro:" + x.Message);
                 return false;
