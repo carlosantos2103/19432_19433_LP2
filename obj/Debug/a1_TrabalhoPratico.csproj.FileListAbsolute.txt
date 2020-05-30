@@ -21,10 +21,8 @@ C:\Users\ruben\OneDrive\TrabalhoPratico1_LP2\bin\Debug\TrabalhoPrático1_19432_1
 C:\Users\ruben\OneDrive\TrabalhoPratico1_LP2\bin\Debug\TrabalhoPrático1_19432_19433.pdb
 C:\Users\ruben\OneDrive\TrabalhoPratico1_LP2\bin\Debug\a2_RegrasNegocio.dll
 C:\Users\ruben\OneDrive\TrabalhoPratico1_LP2\bin\Debug\c1_ObjetosNegocio.dll
-C:\Users\ruben\OneDrive\TrabalhoPratico1_LP2\bin\Debug\c2_Validacoes.dll
 C:\Users\ruben\OneDrive\TrabalhoPratico1_LP2\bin\Debug\a3_DadosClasses.dll
 C:\Users\ruben\OneDrive\TrabalhoPratico1_LP2\bin\Debug\a2_RegrasNegocio.pdb
 C:\Users\ruben\OneDrive\TrabalhoPratico1_LP2\bin\Debug\c1_ObjetosNegocio.pdb
-C:\Users\ruben\OneDrive\TrabalhoPratico1_LP2\bin\Debug\c2_Validacoes.pdb
 C:\Users\ruben\OneDrive\TrabalhoPratico1_LP2\bin\Debug\a3_DadosClasses.pdb
 C:\Users\ruben\OneDrive\TrabalhoPratico1_LP2\obj\Debug\a1_TrabalhoPratico.csproj.CopyComplete

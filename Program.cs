@@ -599,7 +599,7 @@ namespace TrabalhoPrático1_19432_19433
             Console.ReadKey();
             Console.Clear();
 
-            e2 = EquRegras.ObterEquipamento(a.CodEqui);
+            e2 = EquRegras.ObterEquipamento(1);
             Console.WriteLine("- Detalhes de Equipamento\n");
             Console.WriteLine("Código: " + e2.Codigo.ToString());
             Console.WriteLine("Tipo: " + e2.Tipo);

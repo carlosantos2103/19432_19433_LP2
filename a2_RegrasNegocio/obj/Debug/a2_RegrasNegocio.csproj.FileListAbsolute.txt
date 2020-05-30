@@ -26,10 +26,8 @@ C:\Users\ruben\OneDrive\TrabalhoPratico1_LP2\a2_RegrasNegocio\bin\Debug\a2_Regra
 C:\Users\ruben\OneDrive\TrabalhoPratico1_LP2\a2_RegrasNegocio\bin\Debug\a2_RegrasNegocio.pdb
 C:\Users\ruben\OneDrive\TrabalhoPratico1_LP2\a2_RegrasNegocio\bin\Debug\a3_DadosClasses.dll
 C:\Users\ruben\OneDrive\TrabalhoPratico1_LP2\a2_RegrasNegocio\bin\Debug\c1_ObjetosNegocio.dll
-C:\Users\ruben\OneDrive\TrabalhoPratico1_LP2\a2_RegrasNegocio\bin\Debug\c2_Validacoes.dll
 C:\Users\ruben\OneDrive\TrabalhoPratico1_LP2\a2_RegrasNegocio\bin\Debug\c1_ObjetosNegocio.pdb
 C:\Users\ruben\OneDrive\TrabalhoPratico1_LP2\a2_RegrasNegocio\bin\Debug\a3_DadosClasses.pdb
-C:\Users\ruben\OneDrive\TrabalhoPratico1_LP2\a2_RegrasNegocio\bin\Debug\c2_Validacoes.pdb
 C:\Users\ruben\OneDrive\TrabalhoPratico1_LP2\a2_RegrasNegocio\obj\Debug\a2_RegrasNegocio.csprojAssemblyReference.cache
 C:\Users\ruben\OneDrive\TrabalhoPratico1_LP2\a2_RegrasNegocio\obj\Debug\a2_RegrasNegocio.csproj.CoreCompileInputs.cache
 C:\Users\ruben\OneDrive\TrabalhoPratico1_LP2\a2_RegrasNegocio\obj\Debug\a2_RegrasNegocio.csproj.CopyComplete
