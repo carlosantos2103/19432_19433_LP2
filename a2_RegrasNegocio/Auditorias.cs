@@ -20,8 +20,9 @@
 
 using a3_DadosClasses;
 using c1_ObjetosNegocio;
-using c2_Validacoes;
 using System;
+using System.Collections.Generic;
+using System.IO;
 
 namespace a2_RegrasNegocio
 {
@@ -38,13 +39,16 @@ namespace a2_RegrasNegocio
         {
             try
             {
-                return Auditorias.InsereAuditoria(a);
+                return Auditorias.RegistaAuditoria(a);
             }
-            catch (Excecoes x)
+            catch (IndexOutOfRangeException x)
             {
-                Console.WriteLine(x.Message);
+                throw new FormatException("ERRO: " + x.Message);
             }
-            return 0;
+            catch (Exception x)
+            {
+                throw new Exception("ERRO: " + x.Message);
+            }
         }
 
         /// <summary>
@@ -55,15 +59,7 @@ namespace a2_RegrasNegocio
         /// False se não existir</returns>
         public static bool ExisteAuditoria(int cod)
         {
-            try
-            {
-                return Auditorias.ExisteAuditoria(cod);
-            }
-            catch (Excecoes x)
-            {
-                Console.WriteLine(x.Message);
-            }
-            return false;
+            return Auditorias.ExisteAuditoria(cod);
         }
 
         /// <summary>
@@ -72,16 +68,7 @@ namespace a2_RegrasNegocio
         /// <returns>Devolve a quantidade de auditorias</returns>
         public static int QuantidadeAuditorias()
         {
-            try
-            {
-                return Auditorias.QuantidadeAuditorias();
-            }
-            catch (Excecoes x)
-            {
-                Console.WriteLine(x.Message);
-            }
-            return 0;
-
+            return Auditorias.QuantidadeAuditorias();
         }
 
         /// <summary>
@@ -97,59 +84,47 @@ namespace a2_RegrasNegocio
             {
                 return Auditorias.AdicionaVulnerabilidade(cod, codv);
             }
-            catch (Excecoes x)
+            catch (IndexOutOfRangeException x)
             {
-                Console.WriteLine(x.Message);
+                throw new FormatException("ERRO: " + x.Message);
             }
-            return false;
-        }
-
-        /// <summary>
-        /// Remove uma nova vulnerabilidade a uma auditoria
-        /// </summary>
-        /// <param name="cod">Codigo de auditoria </param>
-        /// <param name="codv">Codigo da Vulnerabilidade a adicionar </param>
-        /// <returns> True se for removida
-        /// False se não for removida</returns>
-        public static bool RemoveVulnerabilidadeAuditoria(int cod, int codv)
-        {
-            try
+            catch (Exception x)
             {
-                return Auditorias.RemoveVulnerabilidade(cod, codv);
+                throw new Exception("ERRO: " + x.Message);
             }
-            catch (Excecoes x)
-            {
-                Console.WriteLine(x.Message);
-            }
-            return false;
         }
 
         /// <summary>
         /// Edita as informações de uma auditoria
         /// </summary>
-        /// <param name="a">Auditoria completa </param>
+        /// <param name="cod">Código da auditoria a editar</param>
+        /// <param name="dataRegisto">Nova data de Registo</param>
+        /// <param name="duracao">Nova duração</param>
         /// <returns> True se as informações forem editadas corretamente
         /// False se as informações não forem editadas corretamente </returns>
-        public static bool EditaAuditoria(Auditoria a)
+        public static bool EditaAuditoria(int cod, DateTime dataRegisto, int duracao)
         {
             try
             {
-                return Auditorias.EditaAuditoria(a);
+                return Auditorias.EditaAuditoria(cod, dataRegisto, duracao);
             }
-            catch (Excecoes x)
+            catch (IndexOutOfRangeException x)
             {
-                Console.WriteLine(x);
+                throw new FormatException("ERRO: " + x.Message);
             }
-            return false;
+            catch (Exception x)
+            {
+                throw new Exception("ERRO: " + x.Message);
+            }
         }
 
         /// <summary>
         /// Apresenta informação de auditoria detalhada
         /// </summary>
         /// <param name="a">Auditoria Completa </param>
-        public static void MostraAuditorias()
+        public static List<AuditoriaAux> MostraAuditorias()
         {
-            Auditorias.MostraAuditorias();
+            return Auditorias.MostraAuditorias();
         }
 
         /// <summary>
@@ -158,25 +133,17 @@ namespace a2_RegrasNegocio
         /// <param name="codc">Codigo da Vulnerabilidade a adicionar </param>
         /// <returns> True se forem apresentadas auditorias
         /// False se não forem apresentadas auditorias</returns>
-        public static bool ApresentaAuditoriasColaborador(int codc)
+        public static List<AuditoriaAux> ApresentaAuditoriasColaborador(int codc)
         {
-            try
-            {
-                return Auditorias.ApresentaAuditoriasColaborador(codc);
-            }
-            catch (Excecoes x)
-            {
-                Console.WriteLine(x.Message);
-            }
-            return false;
+            return Auditorias.ApresentaAuditoriasColaborador(codc);
         }
 
         /// <summary>
         /// Apresenta detalhes sobre as auditorias por ordem decrescente de vulnerabilidades
         /// </summary>
-        public static void ApresentaAuditoriasOrdenadasVuln()
+        public static List<AuditoriaAux> ApresentaAuditoriasOrdenadasVuln()
         {
-            Auditorias.ApresentaAuditoriasOrdenadasVuln();
+            return Auditorias.ApresentaAuditoriasOrdenadasVuln();
         }
 
         /// <summary>
@@ -184,19 +151,9 @@ namespace a2_RegrasNegocio
         /// </summary>
         /// <param name="cod">Código da auditoria</param>
         /// <returns>Devolve auditoria completa</returns>
-        public static Auditoria ObterAuditoria(int cod)
+        public static AuditoriaAux ObterAuditoria(int cod)
         {
-            try
-            {
-                if (Auditorias.ObterAuditoria(cod) == null)
-                    Console.WriteLine("\n ERRO! ");
-                return Auditorias.ObterAuditoria(cod);
-            }
-            catch (Excecoes x)
-            {
-                Console.WriteLine(x.Message);
-            }
-            return null;
+            return Auditorias.ObterAuditoria(cod);
         }
 
         /// <summary>
@@ -213,51 +170,27 @@ namespace a2_RegrasNegocio
         /// Obtem a auditoria que tem mais vulnerabilidades registadas
         /// </summary>
         /// <returns>Auditoria com mais vulnerabilidades</returns>
-        public static Auditoria ObterAuditoriaMaisVuln()
+        public static AuditoriaAux ObterAuditoriaMaisVuln()
         {
-            try
-            {
-                return Auditorias.ObterAuditoriaMaisVuln();
-            }
-            catch (Excecoes x)
-            {
-                Console.WriteLine(x.Message);
-            }
-            return null;
+            return Auditorias.ObterAuditoriaMaisVuln();
         }
 
         /// <summary>
         /// Obtem a auditoria que tem menos vulnerabilidades registadas
         /// </summary>
         /// <returns>Auditoria com menos vulnerabilidades</returns>
-        public static Auditoria ObterAuditoriaMenosVuln()
+        public static AuditoriaAux ObterAuditoriaMenosVuln()
         {
-            try
-            {
-                return Auditorias.ObterAuditoriaMenosVuln();
-            }
-            catch (Excecoes x)
-            {
-                Console.WriteLine(x.Message);
-            }
-            return null;
+            return Auditorias.ObterAuditoriaMenosVuln();
         }
 
         /// <summary>
         /// Obtem a média de vulnerabilidades registadas nas auditorias
         /// </summary>
         /// <returns>Media de vulnerabilidades registadas</returns>
-        public static float ObtemMediaVulns()
+        public static double ObtemMediaVulns()
         {
-            try
-            {
-                return Auditorias.ObtemMediaVulns();
-            }
-            catch (Excecoes x)
-            {
-                 Console.WriteLine(x.Message);
-            }
-            return 0;
+            return Auditorias.ObtemMediaVulns();
         }
 
         /// <summary>
@@ -270,11 +203,14 @@ namespace a2_RegrasNegocio
             {
                 return Auditorias.GuardarAuditorias(fileName);
             }
-            catch (Excecoes x)
+            catch (IOException x)
             {
-                 Console.WriteLine(x.Message);
+                throw new IOException("ERRO: " + x.Message);
             }
-            return false;
+            catch (Exception x)
+            {
+                throw new Exception("ERRO: " + x.Message);
+            }
         }
 
         /// <summary>
@@ -287,11 +223,14 @@ namespace a2_RegrasNegocio
             {
                 return Auditorias.CarregarAuditorias(fileName);
             }
-            catch (Excecoes x)
+            catch (IOException x)
             {
-                Console.WriteLine(x.Message);
+                throw new IOException("ERRO: " + x.Message);
             }
-            return false;
+            catch (Exception x)
+            {
+                throw new Exception("ERRO: " + x.Message);
+            }
         }
 
 

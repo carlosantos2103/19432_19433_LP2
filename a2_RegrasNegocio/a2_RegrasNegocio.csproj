@@ -56,13 +56,6 @@
       <Project>{3b33016c-0b57-4aaf-b2b0-d55adde7704a}</Project>
       <Name>a3_DadosClasses</Name>
     </ProjectReference>
-    <ProjectReference Include="..\c2_Validacoes\c2_Validacoes.csproj">
-      <Project>{2321660a-cd45-4b8a-9f21-6266f8b10f18}</Project>
-      <Name>c2_Validacoes</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

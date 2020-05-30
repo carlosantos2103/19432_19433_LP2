@@ -19,8 +19,9 @@
 
 using a3_DadosClasses;
 using c1_ObjetosNegocio;
-using c2_Validacoes;
 using System;
+using System.Collections.Generic;
+using System.IO;
 
 namespace a2_RegrasNegocio
 {
@@ -40,30 +41,40 @@ namespace a2_RegrasNegocio
             {
                 return Colaboradores.RegistaColaborador(c);
             }
-            catch (Excecoes x)
+            catch (IndexOutOfRangeException x)
             {
-                Console.WriteLine(x.Message);
+                throw new FormatException("ERRO: " + x.Message);
             }
-            return false;
+            catch (Exception x)
+            {
+                throw new Exception("ERRO: " + x.Message);
+            }
         }
 
         /// <summary>
         /// Edita as informações de um colaborador
         /// </summary>
-        /// <param name="c">Colaborador completo </param>
+        /// <param name="cod">Código do colaborador a editar</param>
+        /// <param name="nome">Novo nome do colaborador</param>
+        /// <param name="idade">Nova idade do colaborador</param>
+        /// <param name="genero">Novo género do colaborador</param>
+        /// <param name="nif">Novo nif do colaborador</param>
         /// <returns> True se as informações forem editadas corretamente
         /// False se as informações não forem editadas corretamente </returns>
-        public static bool EditaColaborador(Colaborador c)
+        public static bool EditaColaborador(int cod, string nome, int idade, Genero genero, int nif)
         {
             try
             {
-                return Colaboradores.EditaColaborador(c);
+                return Colaboradores.EditaColaborador(cod, nome, idade, genero, nif);
             }
-            catch (Excecoes x)
+            catch (IndexOutOfRangeException x)
             {
-                Console.WriteLine(x.Message);
+                throw new FormatException("ERRO: " + x.Message);
             }
-            return false;
+            catch (Exception x)
+            {
+                throw new Exception("ERRO: " + x.Message);
+            }
         }
 
         /// <summary>
@@ -74,15 +85,7 @@ namespace a2_RegrasNegocio
         /// False se não existir</returns>
         public static bool ExisteColaborador(int cod)
         {
-            try
-            {
-                return Colaboradores.ExisteColaborador(cod);
-            }
-            catch (Excecoes x)
-            {
-                Console.WriteLine(x.Message);
-            }
-            return false;
+            return Colaboradores.ExisteColaborador(cod);
         }
 
         /// <summary>
@@ -93,15 +96,7 @@ namespace a2_RegrasNegocio
         /// 0 se não for encontrado o colaborador</returns>
         public static int PesquisaColaborador(int nif)
         {
-            try
-            {
-                return Colaboradores.PesquisaColaborador(nif);
-            }
-            catch (Excecoes x)
-            {
-                Console.WriteLine(x.Message);
-            }
-            return 0;
+            return Colaboradores.PesquisaColaborador(nif);
         }
 
         /// <summary>
@@ -116,11 +111,14 @@ namespace a2_RegrasNegocio
             {
                 return Colaboradores.AdicionaAuditoriaColaborador(cod);
             }
-            catch (Excecoes x)
+            catch (IndexOutOfRangeException x)
             {
-                Console.WriteLine(x.Message);
+                throw new FormatException("ERRO: " + x.Message);
             }
-            return false;
+            catch (Exception x)
+            {
+                throw new Exception("ERRO: " + x.Message);
+            }
         }
 
         /// <summary>
@@ -135,11 +133,14 @@ namespace a2_RegrasNegocio
             {
                 return Colaboradores.TornarColaboradorInativo(cod);
             }
-            catch (Excecoes x)
+            catch (IndexOutOfRangeException x)
             {
-                Console.WriteLine(x.Message);
+                throw new FormatException("ERRO: " + x.Message);
             }
-            return false;
+            catch (Exception x)
+            {
+                throw new Exception("ERRO: " + x.Message);
+            }
         }
 
         /// <summary>
@@ -150,24 +151,16 @@ namespace a2_RegrasNegocio
         /// False se estiver Inativo </returns>
         public static bool VerificaAtividade(int cod)
         {
-            try
-            {
-                return Colaboradores.VerificaAtividade(cod);
-            }
-            catch (Excecoes x)
-            {
-                Console.WriteLine(x.Message);
-            }
-            return false;
+            return Colaboradores.VerificaAtividade(cod);
         }
 
         /// <summary>
         /// Apresenta informação dos colaboradores
         /// </summary>
         /// <param name="a">Auditoria Completa </param>
-        public static void MostraColaboradores()
+        public static List<ColaboradorAux> MostraColaboradores()
         {
-            Colaboradores.MostraColaboradores();
+            return Colaboradores.MostraColaboradores();
         }
 
         /// <summary>
@@ -180,11 +173,14 @@ namespace a2_RegrasNegocio
             {
                 return Colaboradores.GuardarColaboradores(fileName);
             }
-            catch (Excecoes x)
+            catch (IOException x)
             {
-                Console.WriteLine(x.Message);
+                throw new IOException("ERRO: " + x.Message);
             }
-            return false;
+            catch (Exception x)
+            {
+                throw new Exception("ERRO: " + x.Message);
+            }
         }
 
         /// <summary>
@@ -197,11 +193,14 @@ namespace a2_RegrasNegocio
             {
                 return Colaboradores.CarregarColaboradores(fileName);
             }
-            catch (Excecoes x)
+            catch (IOException x)
             {
-                Console.WriteLine(x.Message);
+                throw new IOException("ERRO: " + x.Message);
             }
-            return false;
+            catch (Exception x)
+            {
+                throw new Exception("ERRO: " + x.Message);
+            }
         }
         #endregion
     }

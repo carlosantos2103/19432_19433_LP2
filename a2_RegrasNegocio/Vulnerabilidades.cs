@@ -19,9 +19,9 @@
 
 using a3_DadosClasses;
 using c1_ObjetosNegocio;
-using c2_Validacoes;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace a2_RegrasNegocio
 {
@@ -40,48 +40,57 @@ namespace a2_RegrasNegocio
             {
                 return Vulnerabilidades.RegistaVulnerabilidade(v);
             }
-            catch (Excecoes x)
+            catch (IndexOutOfRangeException x)
             {
-                Console.WriteLine(x.Message);
+                throw new FormatException("ERRO: " + x.Message);
             }
-            return 0;
+            catch (Exception x)
+            {
+                throw new Exception("ERRO: " + x.Message);
+            }
         }
 
         /// <summary>
         /// Edita as informações de uma vulnerabilidade
         /// </summary>
-        /// <param name="v">Vulnerabilidade completa </param>
+        /// <param name="cod">Código da vulnerabilidade a editar</param>
+        /// <param name="descricao">Nova descrição da vulnerabilidade</param>
+        /// <param name="impacto">Novo Nivel de impacto da vulnerabilidade</param>
+        /// <param name="estado">Novo estado da vulnerabilidade</param>
         /// <returns> True se as informações forem editadas corretamente
         /// False se as informações não forem editadas corretamente </returns>
-        public static bool EditaVulnerabilidade(Vulnerabilidade v)
+        public static bool EditaVulnerabilidade(int cod, string descricao, NivelImpacto impacto, Estado estado)
         {
             try
             {
-                return Vulnerabilidades.EditaVulnerabilidade(v);
+                return Vulnerabilidades.EditaVulnerabilidade(cod, descricao, impacto, estado);
             }
-            catch (Excecoes x)
+            catch (IndexOutOfRangeException x)
             {
-                Console.WriteLine(x.Message);
+                throw new FormatException("ERRO: " + x.Message);
             }
-            return false;
+            catch (Exception x)
+            {
+                throw new Exception("ERRO: " + x.Message);
+            }
         }
 
         /// <summary>
         /// Lista vuilnerabilidades relativas a auditoria agrupadas por nivel de impacto
         /// </summary>
         /// <param name="lst">Lista de codigos de vulnerabilidades</param>
-        public static void ListarVulnerabilidadesImpacto(List<int> lst)
+        public static List<VulnerabilidadeAux> ListarVulnerabilidadesImpacto(List<int> lst)
         {
-            Vulnerabilidades.ListarVulnerabilidadesImpacto(lst);
+            return Vulnerabilidades.ListarVulnerabilidadesImpacto(lst);
         }
 
         /// <summary>
         /// Lista vuilnerabilidades relativas a equipamento
         /// </summary>
         /// <param name="cod"> Código da vulnerabilidade a listar </param>
-        public static void ListarVulnerabilidadeEquipamento(int cod)
+        public static VulnerabilidadeAux ObterVulnerabilidadeEquipamento(int cod)
         {
-            Vulnerabilidades.ListarVulnerabilidadeEquipamento(cod);
+            return Vulnerabilidades.ObterVulnerabilidadeEquipamento(cod);
         }
 
         /// <summary>
@@ -94,11 +103,14 @@ namespace a2_RegrasNegocio
             {
                 return Vulnerabilidades.GuardarVulnerabilidades(fileName);
             }
-            catch (Excecoes x)
+            catch (IOException x)
             {
-                Console.WriteLine(x.Message);
+                throw new IOException("ERRO: " + x.Message);
             }
-            return false;
+            catch (Exception x)
+            {
+                throw new Exception("ERRO: " + x.Message);
+            }
         }
 
         /// <summary>
@@ -111,11 +123,14 @@ namespace a2_RegrasNegocio
             {
                 return Vulnerabilidades.CarregarVulnerabilidades(fileName);
             }
-            catch (Excecoes x)
+            catch (IOException x)
             {
-                Console.WriteLine(x.Message);
+                throw new IOException("ERRO: " + x.Message);
             }
-            return false;
+            catch (Exception x)
+            {
+                throw new Exception("ERRO: " + x.Message);
+            }
         }
     }
 }

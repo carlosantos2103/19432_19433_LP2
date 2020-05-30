@@ -139,4 +139,73 @@ namespace c1_ObjetosNegocio
         }
         #endregion
     }
+
+    public class ColaboradorAux : Pessoa
+    {
+        #region ESTADO
+        private int codigo;
+        private Atividade atividade;
+        #endregion
+
+        #region METODOS
+
+        #region CONSTRUTORES
+        //Criação de novos objetos
+
+        /// <summary>
+        /// Construtor com valores por defeito
+        /// </summary>
+        public ColaboradorAux() : base()
+        {
+            this.codigo = 0;
+            this.atividade = 0;
+        }
+
+        /// <summary>
+        /// Construtor com valores vindos do exterior
+        /// </summary>
+        /// <param name="codigo">Codigo do Colaborador </param>
+        /// <param name="atividade">Atividade do Colaborador </param>
+        /// <param name="nome">Nome do Colaborador </param>
+        /// <param name="genero">Género do Colaborador </param>
+        /// <param name="idade">Idade do Colaborador </param>
+        /// <param name="nif">Nif do Colaborador </param>
+        public ColaboradorAux(int codigo, Atividade atividade, string nome, Genero genero, int idade, int nif) : base(nome, genero, idade, nif)
+        {
+            this.codigo = codigo;
+            this.atividade = atividade;
+            base.Nome = nome;
+            base.Genero = genero;
+            base.Idade = idade;
+        }
+
+        #endregion
+
+        #region PROPRIEDADES
+        // Manipular os atributos do Estado
+
+        /// <summary>
+        /// Manipula o atributo "codigo"
+        /// int codigo;
+        /// </summary>
+        public int Codigo
+        {
+            get => codigo;
+            set => codigo = value;
+        }
+
+        /// <summary>
+        /// Manipula o atributo "estado"
+        /// Estado estado;
+        /// </summary>
+        public Atividade Atividade
+        {
+            get => atividade;
+            set => atividade = value;
+        }
+
+        #endregion
+
+        #endregion
+    }
 }

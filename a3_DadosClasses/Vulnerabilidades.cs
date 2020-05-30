@@ -21,6 +21,7 @@ using c1_ObjetosNegocio;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 
 namespace a3_DadosClasses
@@ -30,6 +31,7 @@ namespace a3_DadosClasses
     {
         #region VARIAVEIS
         private static List<Vulnerabilidade> vul;
+        private static List<VulnerabilidadeAux> vulAux;
         #endregion
 
         #region METODOS
@@ -42,6 +44,7 @@ namespace a3_DadosClasses
         static Vulnerabilidades()
         {
             vul = new List<Vulnerabilidade>();
+            vulAux = new List<VulnerabilidadeAux>();
         }
 
         #endregion
@@ -63,12 +66,14 @@ namespace a3_DadosClasses
                 vul.Add(v);
                 return v.Codigo;
             }
+            catch (IndexOutOfRangeException x)
+            {
+                throw new FormatException(x.Message);
+            }
             catch (Exception x)
             {
-                Console.WriteLine("Erro: " + x.Message);
+                throw new Exception(x.Message);
             }
-
-            return 0;
         }
 
         /// <summary>
@@ -79,109 +84,83 @@ namespace a3_DadosClasses
         /// False se não existir</returns>
         private static bool ExisteVulnerabilidade(int cod)
         {
-            try
-            {
-                foreach (Vulnerabilidade v in vul)
-                    if (v.Codigo == cod) return true;
-                return false;
-            }
-            catch (Exception x)
-            {
-                Console.WriteLine("Erro: " + x.Message);
-            }
-            return false;
+            return vul.Exists(v => v.Codigo == cod);
         }
 
         /// <summary>
         /// Edita as informações de uma vulnerabilidade
         /// </summary>
-        /// <param name="v">Vulnerabilidade completa </param>
+        /// <param name="cod">Código da vulnerabilidade a editar</param>
+        /// <param name="descricao">Nova descrição da vulnerabilidade</param>
+        /// <param name="impacto">Novo Nivel de impacto da vulnerabilidade</param>
+        /// <param name="estado">Novo estado da vulnerabilidade</param>
         /// <returns> True se as informações forem editadas corretamente
         /// False se as informações não forem editadas corretamente </returns>
-        public static bool EditaVulnerabilidade(Vulnerabilidade v)
+        public static bool EditaVulnerabilidade(int cod, string descricao, NivelImpacto impacto, Estado estado)
         {
             try
             {
-                if (ExisteVulnerabilidade(v.Codigo) == false) return false;
+                if (ExisteVulnerabilidade(cod) == false) return false;
                 for (int i = 0; i < vul.Count; i++)
-                    if (vul[i].Codigo == v.Codigo)
-                        vul[i] = v;
+                    if (vul[i].Codigo == cod)
+                    {
+                        vul[i].Descricao = descricao;
+                        vul[i].Impacto = impacto;
+                        vul[i].Estado = estado;
+                    }
                 return true;
+            }
+            catch (IndexOutOfRangeException x)
+            {
+                throw new FormatException(x.Message);
             }
             catch (Exception x)
             {
-                Console.WriteLine("Erro: " + x.Message);
+                throw new Exception(x.Message);
             }
-            return false;
         }
 
         /// <summary>
         /// Lista vuilnerabilidades de uma auditoria agrupadas por nivel de impacto
         /// </summary>
         /// <param name="lst">Lista de codigos de vulnerabilidades</param>
-        public static void ListarVulnerabilidadesImpacto(List<int> lst)/*TEM WRITELINES*/
+        public static List<VulnerabilidadeAux> ListarVulnerabilidadesImpacto(List<int> lst)
         {
-            try
-            {
-                Vulnerabilidade aux2;
-                List<Vulnerabilidade> aux = new List<Vulnerabilidade>();
+            VulnerabilidadeAux vAux = new VulnerabilidadeAux();
+            foreach (int i in lst)
+                foreach (Vulnerabilidade v in vul)
+                    if (i == v.Codigo)
+                    {
+                        vAux = new VulnerabilidadeAux(v.Codigo, v.Descricao, v.Impacto, v.Estado);
+                        vulAux.Add(vAux);
+                    }
 
-                foreach (int i in lst)
-                    foreach (Vulnerabilidade v in vul)
-                        if (i == v.Codigo)
-                        {
-                            aux.Add(v);
-                        }
-                for (int i = 0; i < aux.Count - 1; i++)
-                    for (int j = i + 1; j < aux.Count; j++)
-                        if (aux[i].Impacto > aux[j].Impacto)
-                        {
-                            aux2 = aux[i];
-                            aux[i] = aux[j];
-                            aux[j] = aux2;
-                        }
-                Console.Write("\nBaixo: ");
-                foreach (Vulnerabilidade v in aux)
-                    if (v.Impacto == NivelImpacto.BAIXO)
-                        Console.Write("{0} | ", v.Codigo);
-                Console.Write("\nModerado: ");
-                foreach (Vulnerabilidade v in aux)
-                    if (v.Impacto == NivelImpacto.MODERADO)
-                        Console.Write("{0} | ", v.Codigo);
-                Console.Write("\nElevado: ");
-                foreach (Vulnerabilidade v in aux)
-                    if (v.Impacto == NivelImpacto.BAIXO)
-                        Console.WriteLine("{0} | ", v.Codigo);
-            }
-            catch (Exception x)
-            {
-                Console.WriteLine("Erro: " + x.Message);
-            }
+            var vulnerabilidadesOrdenadas = from v in vulAux
+                                            orderby v.Impacto ascending
+                                            select v;
+
+            return vulAux;
         }
 
         /// <summary>
-        /// Lista vuilnerabilidade relativa a equipamento
+        /// Obtem vuilnerabilidade relativa a equipamento
         /// </summary>
         /// <param name="cod">Codigo de Vulnerabilidade</param>
-        public static void ListarVulnerabilidadeEquipamento(int cod) /*TEM WRITELINES*/
+        public static VulnerabilidadeAux ObterVulnerabilidadeEquipamento(int cod)
         {
-            try
-            {
-                foreach (Vulnerabilidade v in vul)
-                    if (v.Codigo == cod)
-                        Console.WriteLine("Vulnerabilidade:\nCódigo: {0}\nEstado: {1}\nImpacto: {2}\n", v.Codigo.ToString(), v.Estado.ToString(), v.Impacto.ToString());
-            }
-            catch (Exception x)
-            {
-                Console.WriteLine("Erro: " + x.Message);
-            }
+            VulnerabilidadeAux vAux = new VulnerabilidadeAux();
+            if (ExisteVulnerabilidade(cod) == false) return null;
+            foreach (Vulnerabilidade v in vul)
+                if (v.Codigo == cod)
+                    vAux = new VulnerabilidadeAux(v.Codigo, v.Descricao, v.Impacto, v.Estado);
+            return vAux;
         }
 
         /// <summary>
         /// Guarda em ficheiro binário a informação relativa à classe Vulnerabilidade
         /// </summary>
         /// <param name="fileName">Diretório do ficheiro</param>
-        public static bool GuardarVulnerabilidades(string fileName)/* TEM WRITELINES! */
+        public static bool GuardarVulnerabilidades(string fileName)
         {
             try
             {
@@ -193,13 +172,11 @@ namespace a3_DadosClasses
             }
             catch (IOException x)
             {
-                Console.Write("Erro:" + x.Message);
-                return false;
+                throw new IOException(x.Message);
             }
-            catch (Exception e)
+            catch (Exception x)
             {
-                Console.Write("Erro:" + x.Message);
-                return false;
+                throw new Exception(x.Message);
             }
         }
 
@@ -207,7 +184,7 @@ namespace a3_DadosClasses
         /// Carrega o ficheiro binário com a informação relativa à classe Vulnerabilidade
         /// </summary>
         /// <param name="fileName">Diretório do ficheiro</param>
-        public static bool CarregarVulnerabilidades(string fileName)/* TEM WRITELINES! */
+        public static bool CarregarVulnerabilidades(string fileName)
         {
             if (File.Exists(fileName))
             {
@@ -221,22 +198,18 @@ namespace a3_DadosClasses
                 }
                 catch (IOException x)
                 {
-                    Console.Write("ERRO:" + x.Message);
-                    return false;
+                    throw new IOException(x.Message);
                 }
                 catch (Exception x)
                 {
-                    Console.Write("Erro:" + x.Message);
-                    return false;
+                    throw new Exception(x.Message);
                 }
             }
             return false;
         }
 
-
         #endregion
 
         #endregion
-
     }
 }

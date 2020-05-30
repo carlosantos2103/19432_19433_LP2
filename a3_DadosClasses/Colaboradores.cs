@@ -30,6 +30,7 @@ namespace a3_DadosClasses
     {
         #region ATRIBUTOS
         private static List<Colaborador> col;
+        private static List<ColaboradorAux> colAux;
         #endregion
 
         #region METODOS
@@ -42,6 +43,7 @@ namespace a3_DadosClasses
         static Colaboradores()
         {
             col = new List<Colaborador>();
+            colAux = new List<ColaboradorAux>();
         }
 
         #endregion
@@ -63,38 +65,48 @@ namespace a3_DadosClasses
                 col.Add(c);
                 return true;
             }
+            catch (IndexOutOfRangeException x)
+            {
+                throw new FormatException(x.Message);
+            }
             catch (Exception x)
             {
-                Console.WriteLine("Erro: " + x.Message);
-                return false;
+                throw new Exception(x.Message);
             }
         }
 
         /// <summary>
         /// Edita as informações de um colaborador
         /// </summary>
-        /// <param name="c">Colaborador completo </param>
+        /// <param name="cod">Código do colaborador a editar</param>
+        /// <param name="nome">Novo nome do colaborador</param>
+        /// <param name="idade">Nova idade do colaborador</param>
+        /// <param name="genero">Novo género do colaborador</param>
+        /// <param name="nif">Novo nif do colaborador</param>
         /// <returns> True se as informações forem editadas corretamente
         /// False se as informações não forem editadas corretamente </returns>
-        public static bool EditaColaborador(Colaborador c)
+        public static bool EditaColaborador(int cod, string nome, int idade, Genero genero, int nif)
         {
             try
             {
-                if (ExisteColaborador(c.Codigo) == false) return false;
+                if (ExisteColaborador(cod) == false) return false;
                 for (int i = 0; i < col.Count; i++)
-                    if (col[i].Codigo == c.Codigo)
+                    if (col[i].Codigo == cod)
                     {
-                        col[i].Genero = c.Genero;
-                        col[i].Idade = c.Idade;
-                        col[i].Nome = c.Nome;
-                        col[i].Nif = c.Nif;
+                        col[i].Nome = nome;
+                        col[i].Idade = idade;
+                        col[i].Genero = genero;
+                        col[i].Nif = nif;
                     }
                 return true;
             }
+            catch (IndexOutOfRangeException x)
+            {
+                throw new FormatException(x.Message);
+            }
             catch (Exception x)
             {
-                Console.WriteLine("Erro: " + x.Message);
-                return false;
+                throw new Exception(x.Message);
             }
         }
 
@@ -106,17 +118,7 @@ namespace a3_DadosClasses
         /// False se não existir</returns>
         public static bool ExisteColaborador(int cod)
         {
-            try
-            {
-                foreach (Colaborador c in col)
-                    if (c.Codigo == cod) return true;
-                return false;
-            }
-            catch (Exception x)
-            {
-                Console.WriteLine("Erro: " + x.Message);
-                return false;
-            }
+            return col.Exists(c => c.Codigo == cod);
         }
 
         /// <summary>
@@ -127,17 +129,9 @@ namespace a3_DadosClasses
         /// 0 se não for encontrado o colaborador</returns>
         public static int PesquisaColaborador(int nif)
         {
-            try
-            {
-                foreach (Colaborador c in col)
-                    if (c.Nif == nif) return c.Codigo;
-                return 0;
-            }
-            catch (Exception x)
-            {
-                Console.WriteLine("Erro: " + x.Message);
-                return 0;
-            }
+            foreach (Colaborador c in col)
+                if (c.Nif == nif) return c.Codigo;
+            return 0;
         }
 
         /// <summary>
@@ -156,10 +150,13 @@ namespace a3_DadosClasses
                         col[i].QuantAuds++;
                 return true;
             }
+            catch (IndexOutOfRangeException x)
+            {
+                throw new FormatException(x.Message);
+            }
             catch (Exception x)
             {
-                Console.WriteLine("Erro: " + x.Message);
-                return false;
+                throw new Exception(x.Message);
             }
         }
 
@@ -181,10 +178,13 @@ namespace a3_DadosClasses
                     }
                 return false;
             }
+            catch (IndexOutOfRangeException x)
+            {
+                throw new FormatException(x.Message);
+            }
             catch (Exception x)
             {
-                Console.WriteLine("Erro: " + x.Message);
-                return false;
+                throw new Exception(x.Message);
             }
         }
 
@@ -196,44 +196,30 @@ namespace a3_DadosClasses
         /// False se estiver Inativo </returns>
         public static bool VerificaAtividade(int cod)
         {
-            try
-            {
-                foreach (Colaborador c in col)
-                    if (c.Codigo == cod)
-                        if (c.Atividade == Atividade.ATIVO) return true;
-                return false;
-            }
-            catch (Exception x)
-            {
-                Console.WriteLine("Erro: " + x.Message);
-                return false;
-            }
+            foreach (Colaborador c in col)
+                if (c.Codigo == cod)
+                    if (c.Atividade == Atividade.ATIVO) return true;
+            return false;
         }
 
         /// <summary>
         /// Apresenta informação dos colaboradores
         /// </summary>
-        public static void MostraColaboradores()/* TEM WRITELINES! */
+        public static List<ColaboradorAux> MostraColaboradores()
         {
-            try
+            foreach (Colaborador c in col)
             {
-                Console.WriteLine(":{0, -78}:\n:{1, -78}:", "-> Lista de Colaboradores", " ");
-                Console.WriteLine(": {0, -7}: {1, -13}: {2,-10}: {3, -7}: {4, -6}: {5, -11}: {6, -11}:", "Código", "Nome", "Nif", "Idade", "Sexo", "Atividade", "Auditorias");
-                Console.WriteLine(": {0, -7}: {1, -13}: {2,-10}: {3, -7}: {4, -6}: {5, -11}: {6, -11}:", "", "", "", "", "", "", "");
-                foreach (Colaborador c in col)
-                    Console.WriteLine(": {0, -7}: {1, -13}: {2,-10}: {3, -7}: {4, -6}: {5, -11}: {6, -11}:", c.Codigo.ToString(), c.Nome, c.Nif.ToString(), c.Idade.ToString(), c.Genero.ToString(), c.Atividade.ToString(), c.QuantAuds.ToString());
+                ColaboradorAux cAux = new ColaboradorAux(c.Codigo, c.Atividade, c.Nome, c.Genero, c.Idade, c.Nif);
+                colAux.Add(cAux);
             }
-            catch (Exception x)
-            {
-                Console.WriteLine("Erro: " + x.Message);
-            }
+            return colAux;
         }
 
         /// <summary>
         /// Guarda em ficheiro binário a informação relativa à classe Colaborador
         /// </summary>
         /// <param name="fileName">Diretório do ficheiro</param>
-        public static bool GuardarColaboradores(string fileName)/* TEM WRITELINES! */
+        public static bool GuardarColaboradores(string fileName)
         {
             try
             {
@@ -245,8 +231,11 @@ namespace a3_DadosClasses
             }
             catch (IOException x)
             {
-                Console.Write("ERRO:" + x.Message);
-                return false;
+                throw new IOException(x.Message);
+            }
+            catch (Exception x)
+            {
+                throw new Exception(x.Message);
             }
         }
 
@@ -254,7 +243,7 @@ namespace a3_DadosClasses
         /// Carrega o ficheiro binário com a informação relativa à classe Colaborador
         /// </summary>
         /// <param name="fileName">Diretório do ficheiro</param>
-        public static bool CarregarColaboradores(string fileName)/* TEM WRITELINES! */
+        public static bool CarregarColaboradores(string fileName)
         {
             if (File.Exists(fileName))
             {
@@ -268,8 +257,11 @@ namespace a3_DadosClasses
                 }
                 catch (IOException x)
                 {
-                    Console.Write("ERRO:" + x.Message);
-                    return false;
+                    throw new IOException(x.Message);
+                }
+                catch (Exception x)
+                {
+                    throw new Exception(x.Message);
                 }
             }
             return false;

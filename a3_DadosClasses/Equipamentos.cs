@@ -30,6 +30,7 @@ namespace a3_DadosClasses
     {
         #region ATRIBUTOS
         private static List<EquipamentoCompleto> equ;
+        private static List<EquipamentoAux> equAux;
         #endregion
 
         #region METODOS
@@ -42,6 +43,7 @@ namespace a3_DadosClasses
         static Equipamentos()
         {
             equ = new List<EquipamentoCompleto>();
+            equAux = new List<EquipamentoAux>();
         }
 
         #endregion
@@ -64,10 +66,13 @@ namespace a3_DadosClasses
                 equ.Add(ec);
                 return ec.e.Codigo;
             }
+            catch (IndexOutOfRangeException x)
+            {
+                throw new FormatException(x.Message);
+            }
             catch (Exception x)
             {
-                Console.WriteLine("Erro: " + x.Message);
-                return 0;
+                throw new Exception(x.Message);
             }
         }
 
@@ -79,44 +84,41 @@ namespace a3_DadosClasses
         /// False se não existir</returns>
         public static bool ExisteEquipamento(int cod)
         {
-            try
-            {
-                foreach (EquipamentoCompleto ec in equ)
-                    if (ec.e.Codigo == cod) return true;
-                return false;
-            }
-            catch (Exception x)
-            {
-                Console.WriteLine("Erro: " + x.Message);
-                return false;
-            }
+            return equ.Exists(e => e.e.Codigo == cod);
         }
 
         /// <summary>
         /// Edita as informações de um equipamento
         /// </summary>
-        /// <param name="e">Equipamento Completo </param>
+        /// <param name="cod">Código do equipamento a editar</param>
+        /// <param name="marca">Nova marca do equipamento</param>
+        /// <param name="modelo">Novo modelo do equipamento</param>
+        /// <param name="tipo">Novo tipo do equipamento</param>
+        /// <param name="dataAquisicao">Nova data de aquisição do Equipamento</param>
         /// <returns> True se as informações forem editadas corretamente
         /// False se as informações não forem editadas corretamente </returns>
-        public static bool EditaEquipamento(Equipamento e)
+        public static bool EditaEquipamento(int cod, string marca, string modelo, string tipo, DateTime dataAquisicao)
         {
             try
             {
-                if (ExisteEquipamento(e.Codigo) == false) return false;
+                if (ExisteEquipamento(cod) == false) return false;
                 for (int i = 0; i < equ.Count; i++)
-                    if (equ[i].e.Codigo == e.Codigo)
+                    if (equ[i].e.Codigo == cod)
                     {
-                        equ[i].e.DataAquisicao = e.DataAquisicao;
-                        equ[i].e.Marca = e.Marca;
-                        equ[i].e.Modelo = e.Modelo;
-                        equ[i].e.Tipo = e.Tipo;
+                        equ[i].e.DataAquisicao = dataAquisicao;
+                        equ[i].e.Marca = marca;
+                        equ[i].e.Modelo = modelo;
+                        equ[i].e.Tipo = tipo;
                     }
                 return true;
             }
+            catch (IndexOutOfRangeException x)
+            {
+                throw new FormatException(x.Message);
+            }
             catch (Exception x)
             {
-                Console.WriteLine("Erro: " + x.Message);
-                return false;
+                throw new Exception(x.Message);
             }
         }
 
@@ -139,10 +141,13 @@ namespace a3_DadosClasses
                     }
                 return false;
             }
+            catch (IndexOutOfRangeException x)
+            {
+                throw new FormatException(x.Message);
+            }
             catch (Exception x)
             {
-                Console.WriteLine("Erro: " + x.Message);
-                return false;
+                throw new Exception(x.Message);
             }
         }
 
@@ -150,22 +155,14 @@ namespace a3_DadosClasses
         /// Apresenta informação dos equipamentos
         /// </summary>
         /// <param name="e">Equipamento Completo </param>
-        public static void MostraEquipamentos() /* TEM WRITELINES! */
+        public static List<EquipamentoAux> MostraEquipamentos()
         {
-            try
+            foreach (EquipamentoCompleto ec in equ)
             {
-                Console.WriteLine(":{0, -78}:\n:{1, -78}:", "-> Lista de Equipamentos", " ");
-                Console.WriteLine(": {0, -7}: {1, -11}: {2,-10}: {3, -10}: {4, -12}: {5, -17}:", "Código", "Data", "Tipo", "Marca", "Modelo", "Vulnerabilidades");
-                Console.WriteLine(": {0, -7}: {1, -11}: {2,-10}: {3, -10}: {4, -12}: {5, -17}:", "", "", "", "", "", "");
-                foreach (EquipamentoCompleto ec in equ)
-                {
-                    Console.WriteLine(": {0, -7}: {1, -11}: {2,-10}: {3, -10}: {4, -12}: {5, -17}:", ec.e.Codigo.ToString(), ec.e.DataAquisicao.ToShortDateString(), ec.e.Tipo, ec.e.Marca, ec.e.Modelo, ec.codVulns.Count.ToString());
-                }
+                EquipamentoAux eAux = new EquipamentoAux(ec.e.Codigo, ec.e.Tipo, ec.e.Marca, ec.e.Modelo, ec.e.DataAquisicao);
+                equAux.Add(eAux);
             }
-            catch (Exception x)
-            {
-                Console.WriteLine("Erro: " + x.Message);
-            }
+            return equAux;
         }
 
         /// <summary>
@@ -173,20 +170,15 @@ namespace a3_DadosClasses
         /// </summary>
         /// <param name="cod"></param>
         /// <returns>Devolve equipamento completo</returns>
-        public static Equipamento ObterEquipamento(int cod)
+        public static EquipamentoAux ObterEquipamento(int cod)
         {
-            try
-            {
-                foreach (EquipamentoCompleto ec in equ)
-                    if (ec.e.Codigo == cod)
-                        return ec.e;
-                return null;
-            }
-            catch (Exception x)
-            {
-                Console.WriteLine("Erro: " + x.Message);
-                return null;
-            }
+            foreach (EquipamentoCompleto ec in equ)
+                if (ec.e.Codigo == cod)
+                {
+                    EquipamentoAux eAux = new EquipamentoAux(ec.e.Codigo, ec.e.Tipo, ec.e.Marca, ec.e.Modelo, ec.e.DataAquisicao);
+                    return eAux;
+                }
+            return null;
         }
 
         /// <summary>
@@ -196,18 +188,10 @@ namespace a3_DadosClasses
         /// <returns>Quantidade de vulnerabilidades do equipamento</returns>
         public static int ObterQuantidadeVulnerabilidadesEquipamento(int cod)
         {
-            try
-            {
-                foreach (EquipamentoCompleto ec in equ)
-                    if (ec.e.Codigo == cod)
-                        return ec.codVulns.Count;
-                return 0;
-            }
-            catch (Exception x)
-            {
-                Console.WriteLine("Erro: " + x.Message);
-                return 0;
-            }
+            foreach (EquipamentoCompleto ec in equ)
+                if (ec.e.Codigo == cod)
+                    return ec.codVulns.Count;
+            return 0;
         }
 
         /// <summary>
@@ -218,25 +202,17 @@ namespace a3_DadosClasses
         /// <returns>Código da vulnerabilidade</returns>
         public static int ObterCodigoVulnerabilidade(int cod, int pos)
         {
-            try
-            {
-                foreach (EquipamentoCompleto ec in equ)
-                    if (ec.e.Codigo == cod)
-                        return ec.codVulns[pos];
-                return 0;
-            }
-            catch (Exception x)
-            {
-                Console.WriteLine("Erro: " + x.Message);
-                return 0;
-            }
+            foreach (EquipamentoCompleto ec in equ)
+                if (ec.e.Codigo == cod)
+                    return ec.codVulns[pos];
+            return 0;
         }
 
         /// <summary>
         /// Guarda em ficheiro binário a informação relativa à classe Equipamento
         /// </summary>
         /// <param name="fileName">Diretório do ficheiro</param>
-        public static bool GuardarEquipamentos(string fileName) /* TEM WRITELINES! */
+        public static bool GuardarEquipamentos(string fileName)
         {
             try
             {
@@ -248,13 +224,11 @@ namespace a3_DadosClasses
             }
             catch (IOException x)
             {
-                Console.Write("ERRO:" + x.Message);
-                return false;
+                throw new IOException(x.Message);
             }
             catch (Exception x)
             {
-                Console.Write("ERRO:" + x.Message);
-                return false;
+                throw new Exception(x.Message);
             }
         }
 
@@ -262,7 +236,7 @@ namespace a3_DadosClasses
         /// Carrega o ficheiro binário com a informação relativa à classe Equipamento
         /// </summary>
         /// <param name="fileName">Diretório do ficheiro</param>
-        public static bool CarregarEquipamentos(string fileName)/* TEM WRITELINES! */
+        public static bool CarregarEquipamentos(string fileName)
         {
             if (File.Exists(fileName))
             {
@@ -276,8 +250,11 @@ namespace a3_DadosClasses
                 }
                 catch (IOException x)
                 {
-                    Console.Write("ERRO:" + x.Message);
-                    return false;
+                    throw new IOException(x.Message);
+                }
+                catch (Exception x)
+                {
+                    throw new Exception(x.Message);
                 }
             }
             return false;

@@ -19,8 +19,9 @@
 
 using a3_DadosClasses;
 using c1_ObjetosNegocio;
-using c2_Validacoes;
 using System;
+using System.Collections.Generic;
+using System.IO;
 
 namespace a2_RegrasNegocio
 {
@@ -39,11 +40,14 @@ namespace a2_RegrasNegocio
             {
                 return Equipamentos.RegistaEquipamento(e);
             }
-            catch (Excecoes x)
+            catch (IndexOutOfRangeException x)
             {
-                Console.WriteLine(x.Message);
+                throw new FormatException("ERRO : " + x.Message);
             }
-            return 0;
+            catch (Exception x)
+            {
+                throw new Exception("ERRO : " + x.Message);
+            }
         }
 
         /// <summary>
@@ -54,34 +58,33 @@ namespace a2_RegrasNegocio
         /// False se não existir</returns>
         public static bool ExisteEquipamento(int cod)
         {
-            try
-            {
-                return Equipamentos.ExisteEquipamento(cod);
-            }
-            catch (Excecoes x)
-            {
-                Console.WriteLine(x.Message);
-            }
-            return false;
+            return Equipamentos.ExisteEquipamento(cod);
         }
 
         /// <summary>
         /// Edita as informações de um equipamento
         /// </summary>
-        /// <param name="e">Equipamento Completo </param>
+        /// <param name="cod">Código do equipamento a editar</param>
+        /// <param name="marca">Nova marca do equipamento</param>
+        /// <param name="modelo">Novo modelo do equipamento</param>
+        /// <param name="tipo">Novo tipo do equipamento</param>
+        /// <param name="dataAquisicao">Nova data de aquisição do Equipamento</param>
         /// <returns> True se as informações forem editadas corretamente
         /// False se as informações não forem editadas corretamente </returns>
-        public static bool EditaEquipamento(Equipamento e)
+        public static bool EditaEquipamento(int cod, string marca, string modelo, string tipo, DateTime dataAquisicao)
         {
             try
             {
-                return Equipamentos.EditaEquipamento(e);
+                return Equipamentos.EditaEquipamento(cod, marca, modelo, tipo, dataAquisicao);
             }
-            catch (Excecoes x)
+            catch (IndexOutOfRangeException x)
             {
-                Console.WriteLine(x.Message);
+                throw new FormatException("ERRO : " + x.Message);
             }
-            return false;
+            catch (Exception x)
+            {
+                throw new Exception("ERRO : " + x.Message);
+            }
         }
 
         /// <summary>
@@ -97,20 +100,23 @@ namespace a2_RegrasNegocio
             {
                 return Equipamentos.AdicionaVulnerabilidadeEquipamento(cod, codv);
             }
-            catch (Excecoes x)
+            catch (IndexOutOfRangeException x)
             {
-                Console.WriteLine(x.Message);
+                throw new FormatException("ERRO : " + x.Message);
             }
-            return false;
+            catch (Exception x)
+            {
+                throw new Exception("ERRO : " + x.Message);
+            }
         }
 
         /// <summary>
         /// Apresenta informação dos equipamentos
         /// </summary>
         /// <param name="e">Equipamento Completo </param>
-        public static void MostraEquipamentos()
+        public static List<EquipamentoAux> MostraEquipamentos()
         {
-            Equipamentos.MostraEquipamentos();
+            return Equipamentos.MostraEquipamentos();
         }
 
         /// <summary>
@@ -118,17 +124,9 @@ namespace a2_RegrasNegocio
         /// </summary>
         /// <param name="cod"></param>
         /// <returns>Devolve equipamento completo</returns>
-        public static Equipamento ObterEquipamento(int cod)
+        public static EquipamentoAux ObterEquipamento(int cod)
         {
-            try
-            {
-                return Equipamentos.ObterEquipamento(cod);
-            }
-            catch (Excecoes x)
-            {
-                Console.WriteLine(x.Message);
-            }
-            return null;
+            return Equipamentos.ObterEquipamento(cod);
         }
 
         /// <summary>
@@ -162,11 +160,14 @@ namespace a2_RegrasNegocio
             {
                 return Equipamentos.GuardarEquipamentos(fileName);
             }
-            catch (Excecoes x)
+            catch (IOException x)
             {
-                Console.WriteLine(x.Message);
+                throw new IOException("ERRO : " + x.Message);
             }
-            return false;
+            catch (Exception x)
+            {
+                throw new Exception("ERRO : " + x.Message);
+            }
         }
 
         /// <summary>
@@ -179,11 +180,14 @@ namespace a2_RegrasNegocio
             {
                 return Equipamentos.CarregarEquipamentos(fileName);
             }
-            catch (Excecoes x)
+            catch (IOException x)
             {
-                Console.WriteLine(x.Message);
+                throw new IOException("ERRO : " + x.Message);
             }
-            return false;
+            catch (Exception x)
+            {
+                throw new Exception("ERRO : " + x.Message);
+            }
         }
     }
 }

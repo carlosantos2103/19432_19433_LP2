@@ -12,8 +12,6 @@ C:\Users\carlo\OneDrive\LESI\1Ano_2Sem\LP_II\TrabalhoPratico1_LP2\obj\Debug\a1_T
 C:\Users\carlo\OneDrive\LESI\1Ano_2Sem\LP_II\TrabalhoPratico1_LP2\obj\Debug\a1_TrabalhoPratico.csproj.CopyComplete
 C:\Users\carlo\OneDrive\LESI\1Ano_2Sem\LP_II\TrabalhoPratico1_LP2\obj\Debug\TrabalhoPrático1_19432_19433.exe
 C:\Users\carlo\OneDrive\LESI\1Ano_2Sem\LP_II\TrabalhoPratico1_LP2\obj\Debug\TrabalhoPrático1_19432_19433.pdb
-C:\Users\carlo\OneDrive\LESI\1Ano_2Sem\LP_II\TrabalhoPratico1_LP2\bin\Debug\c2_Validacoes.dll
-C:\Users\carlo\OneDrive\LESI\1Ano_2Sem\LP_II\TrabalhoPratico1_LP2\bin\Debug\c2_Validacoes.pdb
 C:\Users\ruben\OneDrive\TrabalhoPratico1_LP2\obj\Debug\a1_TrabalhoPratico.csprojAssemblyReference.cache
 C:\Users\ruben\OneDrive\TrabalhoPratico1_LP2\obj\Debug\a1_TrabalhoPratico.csproj.CoreCompileInputs.cache
 C:\Users\ruben\OneDrive\TrabalhoPratico1_LP2\obj\Debug\TrabalhoPrático1_19432_19433.exe
